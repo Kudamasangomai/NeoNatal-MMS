@@ -1,0 +1,77 @@
+{% extends "main/header.html "%}
+{% load static  %}
+{% block content%}
+
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+   
+        <h1 class="h2">  </h1>
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+
+
+  
+	
+        
+
+   <div class="container">
+  <div class="row">
+    <div class="col">
+<div class="card" style="width: 30rem;">
+<img src="{{usersinfo.profile.image.url}}"  />
+
+  <div class="card-body">
+   Name <h5 class="card-title">{{usersinfo.first_name}} {{ usersinfo.last_name}}</h5>
+    Email  <h5 class="card-title">{{usersinfo.email}}</h5>
+    Username    <h5 class="card-title">{{usersinfo.username}}</h5>
+    
+
+    <!--<p><b>Category </b>:{{ object.category }}</p>
+     <p><b> Written by</b> :{{ object.author }}</p>
+     <p><b>Published On</b>: {{ object.publication_date }}</p>-->
+     
+         {% if user.is_superuser %}
+    <a href="" class="btn btn-secondary">Update</a>
+     <a href="" class="btn btn-danger">Delete</a>
+     {% endif %}
+  </div>
+</div>
+  </div>
+
+   <div class="col">
+        <h3><u>....</u></h3>
+
+
+
+       
+
+
+
+        
+
+     
+    </div>
+     </div>
+</div>
+<hr/>
+
+{% endblock %}
+
+
+ 
+
+
+    
+  
+   
+ 

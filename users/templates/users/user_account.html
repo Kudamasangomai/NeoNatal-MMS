@@ -1,0 +1,144 @@
+{% extends "main/header.html "%}
+{% block content %}
+
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    
+    <h3 class="h3">Books issued to {{ user.first_name|capfirst }} {{ user.last_name }} </h3>
+
+   
+     <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-warning">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-danger">Export</button>
+
+              <button type="button" class="btn btn-sm btn-outline-success ">
+           
+        <a href="{% url 'dashboard' %}">Issue Hstory</a>
+          </button>
+          </div>
+        
+        </div>
+        
+     
+     
+      </div>
+
+     {% if messages %}
+{% for message in messages%}
+
+<div class="alert alert-{{message.tags}}" role="alert">
+
+  {{ message }}
+
+</div>
+{% endfor %}
+{% endif %}
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+
+    <tr>
+    	 <th scope="col">id</th>
+     <th scope="col">bookid</th>
+      <th scope="col">Date issuedate</th>
+         <th scope="col">Return Date</th>
+          <th scope="col">Days Left</th>
+
+           <th scope="col">Status</th>
+        
+    </tr>
+  </thead>
+  <tbody>
+  	{% for acc in useracc  %}
+    <tr>
+    	 <td scope="row">{{  acc.id}}</td>
+       <td scope="row">{{  acc.booksid}}</td>
+       <td scope="row">{{  acc.issuedate}}</td>
+      <td scope="row">{{  acc.due_date|date:'Y-m-d'}}</td>
+      
+    <td>
+        {% if acc.due_date > today  %}
+      {{ today|timesince:acc.due_date}}
+
+
+       {% else %}
+       <p>OverDue</p> 
+   {%  endif %}
+  
+    </td>
+ 
+<!--if acc.due_date > acc.issuedate  -->
+        {% if acc.due_date > today  %}
+      <td style="background-color: #00FF55 ">  
+        <p>Not due Yet</p>  
+      </td>
+
+        {% else %}
+        <td style="background-color: #FF2A2A ">
+          <p>
+          Over due by {{ today|timeuntil:acc.due_date}} </p>
+          {%  endif %}
+        </td>
+    </tr>
+
+   {% endfor %}
+  </tbody>
+</table>
+
+  
+
+   
+<hr/>
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    
+    <h2 class="h2">Books Reserved {{ user.first_name|capfirst }} {{ user.last_name }} </h2>
+
+   
+     <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-warning">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-danger">Export</button>
+
+              <button type="button" class="btn btn-sm btn-outline-success ">
+           
+        <a href="{% url 'dashboard' %}">Issue Hstory</a>
+          </button>
+          </div>
+        
+        </div>
+        
+     
+     
+      </div>
+
+
+ 
+ 
+<table class="table table-hover">
+  <thead class="thead-dark">
+
+    <tr>
+       <th scope="col">id</th>
+     <th scope="col">bookid</th>
+      <th scope="col">Title</th>
+         <th scope="col">Date</th>
+        
+        
+    </tr>
+  </thead>
+  <tbody>
+    {% for reserved in rsvdbooks %}
+    <tr>
+       <td scope="row">{{  reserved.id}}</td>
+       <td scope="row">{{ reserved.bookid_id}}</td>
+       <td scope="row">{{  reserved.bookid.title}}</td>
+      <td scope="row">{{  reserved.datereserved }}</td>
+             
+    </tr>
+
+   {% endfor %}
+  </tbody>
+</table>
+<br/>
+    
+  {% endblock %}

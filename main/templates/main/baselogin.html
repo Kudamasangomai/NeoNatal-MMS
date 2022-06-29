@@ -1,0 +1,23 @@
+{% load static %}
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/signin.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.min.css' %}">
+	<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+	<title>Neo Natal </title>
+</head>
+<body class="text-center">
+{{ today }}
+{%block scripts%}
+
+{%endblock scripts%}
+	{% block content %}
+
+
+
+	{% endblock content %}
+
+</body>
+</html>

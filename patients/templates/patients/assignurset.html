@@ -1,0 +1,30 @@
+{% extends "main/header.html "%}
+{% load static  %}
+{% block content%}
+
+{{   patientobj.patient_surname }}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <p>Assigning Nurse to  {{   patientobj.patient_name}}  {{  patientobj.patient_surname}} </p>
+            <form  method="Post" action="{% url 'assign-nurse' patientobj.id %}" >
+             {% csrf_token %}
+       
+            <select name="nurseid" class="form-control" id="">
+             {% for a in assignednurse %}
+             <option value="{{ a.pk }}">{{ a.last_name }} </option>
+             {% endfor %}
+            
+            </select>                          
+           
+        </div>
+       
+       
+    </div>
+</div>
+<button type="submit" class="btn btn-success">Assign</button>
+</form>
+
+<button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+{% endblock %}

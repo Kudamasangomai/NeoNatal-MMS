@@ -1,0 +1,41 @@
+{% extends "main/header.html "%}
+{% load static  %}
+{% load crispy_forms_tags %}
+{% block content%}
+ 
+
+<h1>Add New Patient</h1>
+
+ <form method="POST" enctype="multipart/form-data" autocomplete="off">
+       {% csrf_token %}
+     <div class="container">
+  <div class="row">
+    <div class="col">
+      {{ form.patient_name|as_crispy_field }}
+
+      {{ form.patient_surname|as_crispy_field }}
+
+      {{ form.patient_nid|as_crispy_field }}
+
+      
+    </div>
+    <div class="col">
+      {{ form.patient_blood_type|as_crispy_field }}
+
+      {{ form.patient_condtion|as_crispy_field }}
+
+      {{ form.patient_assignednurse|as_crispy_field }}
+      <button  type="submit" class="btn btn-success">
+      
+      Submit
+     
+     </button>
+    </div>
+  
+  </div>
+</div>
+<hr/>
+
+    {% endblock content %}
+
+  

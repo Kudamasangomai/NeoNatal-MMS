@@ -1,0 +1,124 @@
+{% extends "main/header.html "%}
+{% block content%}
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">All Users
+
+         
+       </h1>
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'add-user' %}">Add User</a></button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+  {% if messages %}
+{% for message in messages%}
+
+<div class="alert alert-{{message.tags}}" role="alert">
+
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+ <!-- <form class="form-inline my-4 my-lg-2" method="Post"  action="  url 'searched-books' " >
+     {% csrf_token %}
+      <input class="form-control mr-sm-2" name="searchedbook" required="required" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    
+    </form> -->
+
+
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+
+    <tr>
+       <th scope="col">id</th>
+      <th scope="col">Username</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+     <th scope="col">Superuser/Admin</th>
+     <th scope="col">Is Staff</th>
+    
+         <th scope="col">Last login</th>
+       <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user  in users %}
+    <tr>
+       <th scope="row">{{  user.id}}</th>
+      <th scope="row">{{  user.username}}</th>
+      <td>{{  user.first_name}}</td>
+      <td>{{  user.last_name}}</td>
+       <td>{{  user.email}}</td>
+          <td>{{  user.is_superuser}}</td>
+          <td>{{  user.is_staff}}</td>
+        
+          <td>{{  user.last_login}}</td>
+
+      <td><div class="btn-group dropleft">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Action
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{% url 'user-detail' user.id %}">View</a>
+    <a class="dropdown-item" href="{% url 'user-update' user.id %}">Update</a>
+    <a class="dropdown-item" href="#">Delete</a>
+  </div>
+</div></td>
+    </tr>
+   {%endfor%}
+  </tbody>
+</table>
+ <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+{% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page=1">First </a></li>
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page={{ page_obj.previous_page_number}}">Previous </a></li>
+      {% endif %}
+
+      {%  for num in page_obj.paginator.page_range  %}
+
+        {% if page_obj.number == num %}
+
+        <li class="page-item disabled">  <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+            <li class="page-item disabled"> <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+         {% endif %}
+
+        {% endfor%}
+
+  {% if page_obj.has_next %}
+     <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.next_page_number }}">Next </a></li>
+         <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.paginator.num_pages }}">Last </a></li>
+      {% endif %}
+      {% endif %}
+
+
+  
+  </ul>
+</nav>
+
+
+
+
+
+{%endblock content%}
+   
+
+
+
+    

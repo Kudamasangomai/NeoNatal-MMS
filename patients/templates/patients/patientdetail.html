@@ -1,0 +1,218 @@
+{% extends "main/header.html "%}
+{% load static  %}
+{% block content%}
+<script src="{% static 'main/js/chartt.js' %}"></script>
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        {% if patientdetail %}
+        <h1 class="h2"> {{ patient_name }} </h1>
+  {% endif %}
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Add Condtion</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+
+
+      {% if messages %}
+
+      {% for message in messages %}
+
+      <div class="alert alert-{{message.tags}}" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {%endif %}
+	
+        
+
+   <div class="container">
+  <div class="row">
+    <div class="col">
+<div class="card" style="width: 20rem;">
+
+<img src="" />
+  <div class="card-body">
+    <h5 class="card-title">{{object.id}}</h5>
+    <h5 class="card-title">{{object.patient_name}}</h5>
+
+
+   
+     <a href="#" class="btn btn-success">Issue</a>
+         {% if user.is_superuser %}
+    <a href="#" class="btn btn-secondary">Update</a>
+     <a href="#" class="btn btn-danger">Delete</a>
+     {% endif %}
+  </div>
+</div>
+
+  </div>
+  <div class="card" style="width: 20rem;">test</div>
+   <div class="col">
+    {% for entry in medical_record %}
+    {{ entry.hbc }}
+    {% if not forloop.last %},
+    {% endif %}
+    {% endfor %}
+
+
+
+
+
+
+
+        
+
+   
+    </div>
+     </div>
+</div>
+<hr/>
+
+<canvas id="myChart" width="400" height="150"></canvas>  
+<table class="table table-hover">
+  <thead class="thead-light">
+
+    <tr>
+      <th scope="col">Hypertension(BP)</th>
+      <th scope="col">FBC</th>
+       <th scope="col">USe Drugs?</th>
+       <th scope="col">HIV</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Height</th>
+      <th scope="col">BMI</th>
+       <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+ 
+    
+   
+    
+    <!-- pmr = patient_medical_record -->
+    {% for pmr in medical_record %}
+    <tr>
+      <td>{{ pmr.bptop }}/{{ pmr.bpbottom }}</td>
+      <td>{{ pmr.hbc }}</td>
+      <td>{{ pmr.usedrugs }}</td>
+      <td>{{ pmr.hiv  }}</td>
+      <td>{{ pmr.weight  }}</td>
+      <td>{{ pmr.height }}</td>
+
+      {% if pmr.bmi < 18 %}
+      <td style="background-color: orange;">{{ pmr.bmi  }}</td>
+      {% elif pmr.bmi > 18 and pmr.bmi < 25  %}
+      <td style="background-color: green;">{{ pmr.bmi  }}</td>
+      {% else %}
+      <td style="background-color: red;">{{ pmr.bmi  }}</td>
+      {% endif %}
+      <td> .</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+<script>
+  var xValues = [1,2,3,4,5,6];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [
+  {
+      label:'Systolic',
+      data: [
+
+              {% for entry in medical_record %}
+              {{ entry.bptop }}
+              {% if not forloop.last %},
+              {% endif %}
+              {% endfor %}
+],
+backgroundColor: [
+              'rgba(255, 206, 86, 0.2)'
+            
+              
+            ],
+            borderColor: [
+               
+                'rgba(255, 199, 64, 1)'
+            ],
+            borderWidth: 5
+     // borderColor: "blue",
+     // fill: false
+    },
+{
+    label:'Diastolic',
+      data: [
+  
+              {% for entry in medical_record %}
+              {{ entry.bpbottom }}
+              {% if not forloop.last %},
+              {% endif %}
+              {% endfor %}
+
+],
+backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+            
+              
+            ],
+            borderColor: [
+               
+                //'rgba(255, 199, 64, 1)'
+            ],
+            borderWidth: 5
+      //borderColor: "orange",
+     // fill: false
+    },{
+      label:'Full blood Count',
+      data: [
+              {% for entry in medical_record %}
+              {{ entry.hbc }}
+              {% if not forloop.last %},
+              {% endif %}
+              {% endfor %}
+],
+      borderColor: "red",
+      fill: false
+    },{
+    label:'Bmi',
+      data: [
+              {% for entry in medical_record %}
+              {{ entry.bmi }}
+              {% if not forloop.last %},
+              {% endif %}
+              {% endfor %}
+],
+      borderColor: "green",
+      fill: false
+    }
+
+
+
+]
+  },
+  options: {
+    legend: {display: false}
+  }
+});
+</script>
+
+<br>
+{% endblock %}
+
+
+
+
+
+    
+  
+   
+ 

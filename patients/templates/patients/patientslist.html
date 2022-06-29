@@ -1,0 +1,125 @@
+{% extends "main/header.html "%}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content%}
+ <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h2 class="h3">All Patients
+
+         
+       </h2>
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'add-patient' %}">Add Patient</a></button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span>
+            This week
+          </button>
+        </div>
+      </div>
+      {% if messages %}
+      {% for message in messages%}
+      
+      <div class="alert alert-{{message.tags}}" role="alert">
+      
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+ <!-- <form class="form-inline my-4 my-lg-2" method="Post"  action="  url 'searched-books' " >
+     {% csrf_token %}
+      <input class="form-control mr-sm-2" name="searchedbook" required="required" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    
+    </form> -->
+
+
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+
+    <tr>
+       <th scope="col">id</th>
+      <th scope="col">name</th>
+      <th scope="col">surname</th>
+      <th scope="col">Assigend nurse</th>
+   
+       <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient  in patients %}
+    <tr>
+       <th scope="row">{{  patient.id}}</th>
+      <th scope="row">{{  patient.patient_name}}</th>
+      <th scope="row">{{  patient.patient_surname}}</th>
+      <th scope="row">{{  patient.patient_assignednurse.first_name.0}} - {{  patient.patient_assignednurse.last_name|capfirst}}</th>
+
+     
+      
+      <td><div class="btn-group dropleft">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Action
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="{% url 'add-medical-record' patient.id %}">Create MR{{ patient.id }}</a>
+    <a class="dropdown-item" href="{% url 'patient-detail' patient.id %}">View</a>
+    <a class="dropdown-item" href=" url 'patient-update' patient.id ">Update</a>
+    <a class="dropdown-item" href="#">Delete</a>
+    <a class="dropdown-item" href="{% url 'assignurset' patient.id %}"   >Assign {{  patient.patient_name}} </a>
+   
+  </div>
+</div></td>
+    </tr>
+    
+  </tbody>
+  
+  {% endfor %}
+</table>
+ <nav aria-label="Page navigation example">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+{% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page=1">First </a></li>
+       <li class="page-item disabled"> <a class="btn btn-outline-secondary mb-4"  href="?page={{ page_obj.previous_page_number}}">Previous </a></li>
+      {% endif %}
+
+      {%  for num in page_obj.paginator.page_range  %}
+
+        {% if page_obj.number == num %}
+
+        <li class="page-item disabled">  <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+            <li class="page-item disabled"> <a class="btn btn-outline-info mb-4"  href="?page={{ num }}">{{ num }} </a></li>
+         {% endif %}
+
+        {% endfor%}
+
+  {% if page_obj.has_next %}
+     <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.next_page_number }}">Next </a></li>
+         <li class="page-item disabled">   <a class="btn btn-outline-info mb-4"  href="?page={{ page_obj.paginator.num_pages }}">Last </a></li>
+      {% endif %}
+      {% endif %}
+
+
+  
+  </ul>
+</nav>
+
+
+
+
+
+
+{%endblock content%}
+   
+
+
+
+    
