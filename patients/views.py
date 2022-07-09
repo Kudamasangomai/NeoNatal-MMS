@@ -1,11 +1,21 @@
-from django.shortcuts import render,redirect
-from django.urls import reverse_lazy
-from django.views.generic import ListView,DetailView,FormView,UpdateView ,DeleteView,CreateView
+from django.views.generic import (
+
+ListView,
+DetailView,
+FormView,
+UpdateView ,
+DeleteView,CreateView
+) 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render,redirect
 from .models import patient ,medical_record
-from main.forms import *
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.db.models import Q ,Count
 from django.contrib import messages
+from main.forms import *
+
+
 
 # Create your views here.
 
@@ -33,7 +43,12 @@ class patientdetail(DetailView):
         context = super(patientdetail, self).get_context_data(**kwargs)
         context['medical_record'] = medical_record.objects.filter(patientid=self.kwargs['pk'])
         context['qs'] = User.objects.all()
-    
+        #context['hbccount'] = medical_record.objects.values('hbc').annotate(count=Count('hbc'))
+        context['hbccount'] = medical_record.objects.filter(patientid = self.kwargs['pk']).count()
+        context['normalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__gte=11)).count()
+        context['notnormalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__lte=11)).count()
+        context['survival'] = ((context['normalhbc'] / context['hbccount']) * 100)
+        context['notchnacesurvival'] = ((context['notnormalhbc'] / context['hbccount']) * 100)
         return context
 
         #130/85

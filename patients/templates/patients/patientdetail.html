@@ -55,17 +55,19 @@
   </div>
   <div class="card" style="width: 20rem;">test</div>
    <div class="col">
-    {% for entry in medical_record %}
+    <!-- {% for entry in medical_record %}
     {{ entry.hbc }}
-    {% if not forloop.last %},
+   {% if not forloop.last %}:
     {% endif %}
-    {% endfor %}
+    {% endfor %} -->
 
 
+<hr>
 
+The baby has a {{ survival|floatformat:0 }}% chance of surviving becacause of better full blood count
 
-
-
+<hr>
+The baby has a {{ notchnacesurvival|floatformat:0 }}% chance of not surviving becacause of bad full blood count
 
         
 
@@ -80,6 +82,7 @@
   <thead class="thead-light">
 
     <tr>
+      <th>test</th>
       <th scope="col">Hypertension(BP)</th>
       <th scope="col">FBC</th>
        <th scope="col">USe Drugs?</th>
@@ -98,6 +101,7 @@
     <!-- pmr = patient_medical_record -->
     {% for pmr in medical_record %}
     <tr>
+      <td>{{ pmr.hbc.all.count }}</td>
       <td>{{ pmr.bptop }}/{{ pmr.bpbottom }}</td>
       <td>{{ pmr.hbc }}</td>
       <td>{{ pmr.usedrugs }}</td>
@@ -107,7 +111,7 @@
 
       {% if pmr.bmi < 18 %}
       <td style="background-color: orange;">{{ pmr.bmi  }}</td>
-      {% elif pmr.bmi > 18 and pmr.bmi < 25  %}
+      {% elif pmr.bmi > 18 and pmr.bmi <= 25  %}
       <td style="background-color: green;">{{ pmr.bmi  }}</td>
       {% else %}
       <td style="background-color: red;">{{ pmr.bmi  }}</td>
@@ -118,7 +122,7 @@
   </tbody>
   </table>
 <script>
-  var xValues = [1,2,3,4,5,6];
+  var xValues = [1,2,3,4,5,6,8,9];
 
 new Chart("myChart", {
   type: "bar",
@@ -166,11 +170,10 @@ backgroundColor: [
             ],
             borderColor: [
                
-                //'rgba(255, 199, 64, 1)'
+   
             ],
             borderWidth: 5
-      //borderColor: "orange",
-     // fill: false
+
     },{
       label:'Full blood Count',
       data: [
@@ -180,8 +183,16 @@ backgroundColor: [
               {% endif %}
               {% endfor %}
 ],
-      borderColor: "red",
-      fill: false
+backgroundColor: [
+          'rgba(255, 255, 255, 0.2)',
+            
+              
+            ],
+borderColor: [
+               
+               'rgba(255, 0, 0, 1)'
+           ],
+                borderWidth: 5
     },{
     label:'Bmi',
       data: [
@@ -191,8 +202,16 @@ backgroundColor: [
               {% endif %}
               {% endfor %}
 ],
-      borderColor: "green",
-      fill: false
+     backgroundColor: [
+          'rgba(255, 255, 255, 0.2)',
+            
+              
+            ],
+borderColor: [
+               
+               'rgba(0, 127, 255, 1)'
+           ],
+                borderWidth: 5
     }
 
 
