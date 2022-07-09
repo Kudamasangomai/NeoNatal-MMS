@@ -33,22 +33,19 @@
         
 
    <div class="container">
+    <h5 class="card-title">{{object.patient_name}}  {{object.patient_surname}} </h5>
+    <hr>
   <div class="row">
     <div class="col">
 <div class="card" style="width: 20rem;">
 
 <img src="" />
   <div class="card-body">
-    <h5 class="card-title">{{object.id}}</h5>
-    <h5 class="card-title">{{object.patient_name}}</h5>
+ 
 
 
    
-     <a href="#" class="btn btn-success">Issue</a>
-         {% if user.is_superuser %}
-    <a href="#" class="btn btn-secondary">Update</a>
-     <a href="#" class="btn btn-danger">Delete</a>
-     {% endif %}
+    <canvas id="mylineChart" width="10" height="10"></canvas>
   </div>
 </div>
 
@@ -233,7 +230,7 @@ borderColor: [
       type: "pie",
       data: {
           labels: [
-            'survival chance'  , 'Chance of not surviving'
+            'survival'  , 'not surviving'
           ],
           datasets: [{
               label: '',
@@ -252,7 +249,7 @@ borderColor: [
                   
               ],
               borderColor: [
-                  'rgba(0, 09, 0, 1)',
+                  'rgba(255, 255, 255 , 1)',
                  
                 
               ],
@@ -263,7 +260,49 @@ borderColor: [
   });
   </script>
   
-  
+  <script>
+    const ctxline = document.getElementById('mylineChart').getContext('2d');
+    const mylineChart = new Chart(ctxline, {
+        type: "line",
+        data: {
+            labels: [ 1 ,2 ,3 ,4 ,5 , 6 ,7 ,8 , 9
+         
+            ],
+            datasets: [{
+                label: [
+                  
+              'BMI recordings'
+              
+              ],
+                data: [
+                  
+              {% for pmr in medical_record %}
+              {{ pmr.bmi }}
+              {% if not forloop.last %},
+              {% endif %}
+              {% endfor %}
+                
+                 
+                
+                ],
+                
+           backgroundColor: [
+                    'rgba(0, 200, 5,0.5)',
+                 
+                  
+                    
+                ],
+                borderColor: [
+                    'rgba(0, 09, 0, 1)',
+                   
+                  
+                ],
+                borderWidth: 1
+            }]
+        },
+      
+    });
+    </script>
 <br>
 {% endblock %}
 
