@@ -48,13 +48,8 @@ class patientdetail(DetailView):
         context['normalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__gte=11)).count()
         context['notnormalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__lte=11)).count()
         context['survival'] = ((context['normalhbc'] / context['hbccount']) * 100)
-        context['notchnacesurvival'] = ((context['notnormalhbc'] / context['hbccount']) * 100)
+        context['nochancesurvival'] = ((context['notnormalhbc'] / context['hbccount']) * 100)
         return context
-
-        #130/85
-        #130-139/85-89
-        #140-159/90-99
-        #160/100
 
 
 class AddPatientView(SuccessMessageMixin,CreateView):

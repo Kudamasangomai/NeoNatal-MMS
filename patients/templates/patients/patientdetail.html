@@ -53,7 +53,11 @@
 </div>
 
   </div>
-  <div class="card" style="width: 20rem;">test</div>
+  <div class="card" style="width: 20rem;">
+ 
+    <canvas id="myPieChart" width="10" height="10"></canvas>
+  
+  </div>
    <div class="col">
     <!-- {% for entry in medical_record %}
     {{ entry.hbc }}
@@ -67,7 +71,7 @@
 The baby has a {{ survival|floatformat:0 }}% chance of surviving becacause of better full blood count
 
 <hr>
-The baby has a {{ notchnacesurvival|floatformat:0 }}% chance of not surviving becacause of bad full blood count
+The baby has a {{ nochancesurvival|floatformat:0 }}% chance of not surviving becacause of bad full blood count
 
         
 
@@ -223,7 +227,43 @@ borderColor: [
   }
 });
 </script>
-
+<script>
+  const ctxpie = document.getElementById('myPieChart').getContext('2d');
+  const myPieChart = new Chart(ctxpie, {
+      type: "pie",
+      data: {
+          labels: [
+            'survival chance'  , 'Chance of not surviving'
+          ],
+          datasets: [{
+              label: '',
+              data: [
+                
+           {{ survival }}, {{ nochancesurvival }}
+              
+               
+              
+              ],
+              
+         backgroundColor: [
+                  'rgba(0, 200, 5,0.5)',
+                  'rgba(255, 0, 1,0.5)',
+                
+                  
+              ],
+              borderColor: [
+                  'rgba(0, 09, 0, 1)',
+                 
+                
+              ],
+              borderWidth: 1
+          }]
+      },
+    
+  });
+  </script>
+  
+  
 <br>
 {% endblock %}
 
