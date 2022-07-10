@@ -7,14 +7,17 @@ FormView,
 UpdateView ,
 DeleteView,CreateView
 ) 
+from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render,redirect
 from .models import patient ,medical_record
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.db.models import Q ,Count
+from django.core.mail import send_mail
 from django.contrib import messages
 from main.forms import *
+from neonatal.settings import EMAIL_HOST_USER
 
 
 
@@ -35,7 +38,7 @@ class patientslistview(ListView):
         return context
 
 
-class patientdetail(DetailView):
+class patientdetail(LoginRequiredMixin, DetailView):
     model= patient
     template_name =  'patients/patientdetail.html'
     context_object_name = 'patientdetail'
@@ -88,14 +91,22 @@ def assignurset(request,pk):
 
 
 def AssignNurseView(request,pk):
+
+    protocol = 'http://'	
+    host = request.get_host()
     post = patient.objects.get(id=pk)
     #instance = request.POST['nurseid']
     r = User.objects.get(id=request.POST['nurseid'])
-    if request.method == 'POST':       
+    if request.method == 'POST':
+             
         
         post.patient_assignednurse = r
-        print(r)
         post.save()
+        subject = "New patient - Neo Natal"
+        link = protocol + host + reverse('patient-detail',kwargs={'pk':post.id})
+        message = " A new Patient has been assigned to you. Login to view "	+ link
+        recipient_list = [r.email,]
+        send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
         messages.success(request,f'Patient { post.patient_surname } { post.patient_name }has been Assinged to a Nurse')
         return redirect('patients')
 

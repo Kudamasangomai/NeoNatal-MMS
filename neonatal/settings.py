@@ -139,3 +139,13 @@ LOGIN_URL = 'login'
 
 SESSION_EXPIRE_SECONDS = 6000  # 300 seconds = 5 minutes
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
+
+#for email
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kudam775@gmail.com'
+EMAIL_HOST_PASSWORD = 'lkjvvkkhzbmjzluz'
+DEFAULT_FROM_EMAIL = 'kudam775@gmail.com'
