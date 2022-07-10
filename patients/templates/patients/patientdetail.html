@@ -8,8 +8,10 @@
   {% endif %}
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Add Condtion</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <a class="dropdown-item" ></a>
+            <a href="{% url 'add-medical-record' object.id %}"><button type="button"  class="btn btn-sm btn-outline-secondary">Add MR</button></a>
+            <a href="{% url 'add-medical-record' object.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">Add Child</button></a>
+            
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <span data-feather="calendar"></span>
@@ -56,34 +58,37 @@
   
   </div>
    <div class="col">
-    <!-- {% for entry in medical_record %}
-    {{ entry.hbc }}
-   {% if not forloop.last %}:
-    {% endif %}
-    {% endfor %} -->
 
 
 <hr>
+{{ survival }} / {{ nochancesurvival }}<br/>
+{% if survival  %}
+  
+
 
 The baby has a {{ survival|floatformat:0 }}% chance of surviving becacause of better full blood count
 
 <hr>
 The baby has a {{ nochancesurvival|floatformat:0 }}% chance of not surviving becacause of bad full blood count
+{% else %}
 
-        
+
+no data
+{% endif %}   
 
    
     </div>
      </div>
 </div>
 <hr/>
-
+{% include "main/messages.html" %}
+<hr>
 <canvas id="myChart" width="400" height="150"></canvas>  
 <table class="table table-hover">
   <thead class="thead-light">
 
     <tr>
-      <th>test</th>
+    
       <th scope="col">Hypertension(BP)</th>
       <th scope="col">FBC</th>
        <th scope="col">USe Drugs?</th>
@@ -101,8 +106,8 @@ The baby has a {{ nochancesurvival|floatformat:0 }}% chance of not surviving bec
     
     <!-- pmr = patient_medical_record -->
     {% for pmr in medical_record %}
-    <tr>
-      <td>{{ pmr.hbc.all.count }}</td>
+    <tr hx-target="this" hx-swap="outerHTML">
+     
       <td>{{ pmr.bptop }}/{{ pmr.bpbottom }}</td>
       <td>{{ pmr.hbc }}</td>
       <td>{{ pmr.usedrugs }}</td>
@@ -117,11 +122,19 @@ The baby has a {{ nochancesurvival|floatformat:0 }}% chance of not surviving bec
       {% else %}
       <td style="background-color: red;">{{ pmr.bmi  }}</td>
       {% endif %}
-      <td> .</td>
+      <td> 
+
+        <button hx-post="{%  url 'delete-medical-record' pmr.id %}">Delete</button>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
   </table>
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+  </script>
 <script>
   var xValues = [1,2,3,4,5,6,8,9];
 

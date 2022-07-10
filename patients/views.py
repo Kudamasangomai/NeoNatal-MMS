@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.views.generic import (
 
 ListView,
@@ -47,6 +48,8 @@ class patientdetail(DetailView):
         context['hbccount'] = medical_record.objects.filter(patientid = self.kwargs['pk']).count()
         context['normalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__gte=11)).count()
         context['notnormalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__lte=11)).count()
+        if context['hbccount'] == 0 :
+            return context
         context['survival'] = ((context['normalhbc'] / context['hbccount']) * 100)
         context['nochancesurvival'] = ((context['notnormalhbc'] / context['hbccount']) * 100)
         return context
@@ -64,7 +67,7 @@ class AddMedcialRecordView(SuccessMessageMixin,CreateView):
     form_class = AddMedicalRecordForm
     template_name = 'patients/addmedicalrecord.html'
     success_url = reverse_lazy('patients')
-    success_message = 'Patient successfully Added'
+    success_message = 'Patient Medical Record successfully Added'
 
     def form_valid(self,form):
         patientidd = patient.objects.get(id=self.kwargs['pk'])
@@ -95,6 +98,12 @@ def AssignNurseView(request,pk):
         post.save()
         messages.success(request,f'Patient { post.patient_surname } { post.patient_name }has been Assinged to a Nurse')
         return redirect('patients')
+
+def delete_medical_record(request,pk):
+    patientmedcicalrecord = medical_record.objects.get(pk=pk)
+    patientmedcicalrecord.delete()
+    messages.success(request,f' record deleted')
+    return HttpResponse('')
 
 
 
