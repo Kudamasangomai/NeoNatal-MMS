@@ -4,8 +4,8 @@ from . import views
 
 from .views import (
 
-AddChildview
-
+AddChildview,
+ChildListView
 	 )
 
 
@@ -15,9 +15,9 @@ urlpatterns = [
 
   
 
-
-   path('patient/add_child/',AddChildview.as_view(),name="add-child"),
-
+   path('',ChildListView.as_view(),name="child-list"),
+   path('add_child/<int:pk>/',AddChildview.as_view(),name="add-child"),
+  # path('patients/addmedicalrecord/<int:pk>/',AddMedcialRecordView.as_view(),name="add-medical-record"),
 
 
   

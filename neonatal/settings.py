@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'crispy_forms',
     'patients',
+    'child'
 ]
 CRISPY_TEMPLATE_PACK ='bootstrap4'
 

@@ -66,46 +66,6 @@ class AddPatientView(SuccessMessageMixin,CreateView):
     success_url = reverse_lazy('patients')
     success_message = 'Patient successfully Added'
 
-    # def form_valid(self,form):
-    #     #form.instance.User = self.request.user
-
-    #     return super().form_valid(form)
-
-    # def quoteThankyou(request):
-    #     subject = 'Message subject'
-    #     message = 'Message'
-    #     send_mail(
-    #     subject,
-    #     message,
-    #     'kudam775@gmail.com',
-    #     ['kudam775@gmail.com'],
-    #     fail_silently=False,
-    #     )
-    #     return render(request,'patients/patientslist.html')
-
-
-  
-
-# def AddPatientf(request):
-#     if request.method == 'POST':
-#         form = AddPatientForm(request.POST)
-#         r = User.objects.get(id=request.POST['patient_assignednurse'])
-
-#         protocol = 'http://'	
-#         host = request.get_host()
-
-#         if form.is_valid():
-#             form.save()
-#             subject = "New patient - Neo Natal"
-#             link = protocol + host + reverse('patient-detail',kwargs={'pk':post.id})
-#             message = " A new Patient has been assigned to you. Login to view "	+ link
-#             recipient_list = [r.email,]
-#             send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
-#             messages.success(request,f'Patient successfully Added')
-#             return redirect('patients')
-
-
-
 class AddMedcialRecordView(SuccessMessageMixin,CreateView):
     model = medical_record
     form_class = AddMedicalRecordForm

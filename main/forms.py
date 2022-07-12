@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from patients.models import *
-from crispy_forms.layout import Layout, Fieldset, Submit
+from child.models import *
+#from crispy_forms.layout import Layout, Fieldset, Submit
 
 
 
@@ -37,6 +38,13 @@ class AddMedicalRecordForm(forms.ModelForm):
         model = medical_record
         fields = '__all__'
         exclude = ['userid','patientid']
+
+class Addchildform(forms.ModelForm):
+
+    class meta:
+        model = child
+        fields = '__all__'
+        #exclude = ['userid','patientid']
 
 
     

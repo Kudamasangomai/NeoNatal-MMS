@@ -25,6 +25,7 @@ urlpatterns = [
     path('',include('patients.urls')),  
     path('',include('users.urls')),  
     path('',include('main.urls')), 
+    path('',include('child.urls')), 
 	path('', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
  
