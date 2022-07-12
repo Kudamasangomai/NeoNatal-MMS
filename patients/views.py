@@ -7,7 +7,7 @@ FormView,
 UpdateView ,
 DeleteView,CreateView
 ) 
-from django.views import View
+
 from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render,redirect
