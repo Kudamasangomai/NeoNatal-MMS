@@ -18,10 +18,8 @@ class ChildListView(ListView):
     template_name: str
 
 class AddChildview(SuccessMessageMixin,CreateView):
-    model: child
-    form_class: Addchildform
+    model = child
+    form_class = Addchildform
     template_name = 'child/addchild.html'
     success_url = reverse_lazy('patients')
     success_message = 'child Added'
-
-
