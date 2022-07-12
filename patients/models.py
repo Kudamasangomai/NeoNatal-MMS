@@ -21,7 +21,7 @@ class patient(models.Model):
     patient_nid = models.CharField(max_length=20,default='',unique=True)
     patient_blood_type = models.CharField(max_length=10,choices = blood_type)  
     patient_condtion = models.CharField(max_length=100,default='')
-    patient_assignednurse = models.ForeignKey(User,default=0,on_delete=models.CASCADE)
+    patient_assignednurse = models.ForeignKey(User,default=0,on_delete=models.CASCADE, db_constraint=False)
 
 
     def __str__(self):
