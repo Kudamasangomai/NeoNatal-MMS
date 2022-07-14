@@ -8,8 +8,9 @@ UpdateView ,
 DeleteView,CreateView
 ) 
 
-from django.contrib.auth.mixins import LoginRequiredMixin ,PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from .models import patient ,medical_record
 from django.contrib.auth.models import User
@@ -25,7 +26,7 @@ from neonatal.settings import EMAIL_HOST_USER
 # Create your views here.
 
 
-class patientslistview(ListView):
+class patientslistview(LoginRequiredMixin , ListView):
     model = patient
     template_name = 'patients/patientslist.html'
     context_object_name = 'patients'
@@ -59,14 +60,14 @@ class patientdetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class AddPatientView(SuccessMessageMixin,CreateView):
+class AddPatientView(LoginRequiredMixin , SuccessMessageMixin,CreateView):
     model = patient
     form_class = AddPatientForm
     template_name = 'patients/addpatients.html'
     success_url = reverse_lazy('patients')
     success_message = 'Patient successfully Added'
 
-class AddMedcialRecordView(SuccessMessageMixin,CreateView):
+class AddMedcialRecordView(LoginRequiredMixin ,SuccessMessageMixin,CreateView):
     model = medical_record
     form_class = AddMedicalRecordForm
     template_name = 'patients/addmedicalrecord.html'
@@ -81,7 +82,7 @@ class AddMedcialRecordView(SuccessMessageMixin,CreateView):
         return super().form_valid(form)
 
 
-
+@login_required
 def assignurset(request,pk):
     patientobj = patient.objects.get(id=pk)
     assignednurse = User.objects.all()
@@ -90,7 +91,7 @@ def assignurset(request,pk):
         'assignednurse':assignednurse
         })
 
-
+@login_required
 def AssignNurseView(request,pk):
 
     protocol = 'http://'	
@@ -110,7 +111,8 @@ def AssignNurseView(request,pk):
         send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
         messages.success(request,f'Patient { post.patient_surname } { post.patient_name }has been Assinged to a Nurse')
         return redirect('patients')
-
+        
+@login_required
 def delete_medical_record(request,pk):
     patientmedcicalrecord = medical_record.objects.get(pk=pk)
     patientmedcicalrecord.delete()

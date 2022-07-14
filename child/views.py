@@ -12,12 +12,13 @@ DeleteView,CreateView
 from .models import child 
 from main.forms import *
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ChildListView(ListView):
-    template_name: str
+# class ChildListView(ListView):
+#     template_name: str
 
-class AddChildview(SuccessMessageMixin,CreateView):
+class AddChildview(LoginRequiredMixin, SuccessMessageMixin,CreateView):
     model = child
     form_class = Addchildform
     template_name = 'child/addchild.html'
