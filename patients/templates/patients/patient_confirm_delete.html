@@ -1,0 +1,31 @@
+{% extends "main/header.html "%}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content%}
+
+
+<div class="container">
+
+  
+
+    <form method="POST">
+        {% csrf_token %}
+<fieldset class="form-group">
+ <div class="col-xs-6">
+    <h4>You are Deleting   {{  object.patient_name }} {{ object.patient_surname}}'s  </h4>
+
+    <h3>Are You Sure</h3>
+       <div class="form-group">
+  <button type="submit" class="btn btn-danger">Yes Delete</button>
+   <a href="{% url 'patients'%}" class="btn btn-warning">No Cancel</a>
+       </div>
+       </fieldset>
+    
+ </div>
+    
+    </form>
+  </div>
+</div>
+
+  
+{% endblock content %}

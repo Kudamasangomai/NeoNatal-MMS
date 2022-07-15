@@ -4,7 +4,7 @@
 {% block content%}
  
 <br><br>
-<h2>Add  Child of {{ motherinfo.patient_name }} {{ motherinfo.patient_surname }}</h2>
+<h2>Add  Agpare score Test for {{ childregno.childregno }}</h2>
 
 
 
@@ -17,7 +17,7 @@
     <div class="col">
       {{ form|crispy }}
 
-    <!-- <input type="text" id="apgar"/> -->
+   
       <button type="submit" class="btn btn-info">
         Submit
        
@@ -37,14 +37,14 @@
 
 <script>
   $("input").on("input", function() {
-    var ret = parseInt($("#id_heartrate").val()) + parseInt($("#id_muscletone").val() )
-      + parseInt($("#id_skincolour").val() )
-      + parseInt($("#id_reflex").val() ) 
-     + parseInt($("#id_Breathing").val() ) 
-    //   + parseInt($("#id_muscletone").val() )
+    var ret = parseInt($("#id_heart_rate").val()) + parseInt($("#id_muscle_tone").val() )
+      + parseInt($("#id_skin_colour").val() )
+      + parseInt($("#id_re_flex").val() ) 
+     + parseInt($("#id_Brea_thing").val() ) 
+
 
     $("#apgar").val(ret);
-    $("#id_agparscore").val(ret);
+    $("#id_agpar_score").val(ret);
   });
 
   

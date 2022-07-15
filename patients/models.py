@@ -26,6 +26,9 @@ class patient(models.Model):
 
     def __str__(self):
         return self.patient_name
+    
+    def get_absolute_url(self):       
+        return reverse('patient-detail', kwargs={'pk': self.pk})
 
 class medical_record(models.Model):
     hiv_status=(

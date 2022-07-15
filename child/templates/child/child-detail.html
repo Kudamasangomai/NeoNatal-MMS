@@ -1,0 +1,123 @@
+{% extends "main/header.html "%}
+{% load static  %}
+{% block content%}
+
+<br/>
+<h5>Child birth number {{ object.childregno }}</h5>
+<h5>Mother - {{ object.motherid.patient_surname }}</h5>
+
+
+<div class="container bootstrap snippets bootdey">
+   
+        <div class="post-list">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="picture">
+                        <img alt="Opt wizard thumbnail" src="https://bootdey.com/img/Content/user_1.jpg">
+                    </div>
+                </div>
+            
+                <div class="col-sm-10">
+                    <table class="table table-hover">
+                        <thead>
+
+                            <tr>
+                            
+                              <th scope="col">Heart Rate</th>
+                              <th scope="col">Skin Colour</th>
+                              <th scope="col">Reflex</th>
+                              <th scope="col">Breathing</th>
+                              <th scope="col">Muscle Tone</th>
+                             <th scope="col">AgPar Score</th>
+                             <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              
+                                <tr>
+                         
+
+                                  <th scope="row">{{  object.heartrate}}</th>
+                                  <th scope="row">{{  object.skincolour}}</th>
+                                  <th scope="row">{{  object.reflex}}</th>
+                                  <th scope="row">{{  object.Breathing }}</th>
+                                  <th scope="row">{{  object.muscletone}}</th>
+                                  <th scope="row"> {{ object.agparscore }}</th>
+                                
+                                 
+                                  
+                                  <td><div class="btn-group dropleft">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                
+                                <a class="dropdown-item" href="{% url 'add-test' object.childregno %} ">Add test 2</a>
+                                <a class="dropdown-item" href=" url 'object-update' object.id ">Update</a>
+                                <a class="dropdown-item" href=" url 'delete-object' object.id  ">Delete</a>
+                                
+                                
+                                </div>
+                                </div></td>
+                                </tr>
+
+                                {% for a  in othertest  %}
+                                <tr>
+                                 
+                                    <th scope="row">   {{ a.heart_rate }}</th>
+                                    <th scope="row">   {{ a.skin_colour }}</th>
+                                    <th scope="row">   {{ a.re_flex }}</th>
+                                    <th scope="row">   {{ a.Brea_thing }}</th>
+                                    <th scope="row">   {{ a.muscle_tone }}</th>
+                                    <th scope="row">   {{ a.agpar_score }}</th>
+                                 
+                                    <th><div class="btn-group dropleft">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        
+                                        <a class="dropdown-item" href="{% url 'add-test' object.childregno %} ">Add test 2</a>
+                                        <a class="dropdown-item" href=" url 'object-update' object.id ">Update</a>
+                                        <a class="dropdown-item" href=" url 'delete-object' object.id  ">Delete</a>
+                                        
+                                        
+                                        </div>
+                                        </div>
+                                    </th>
+                                
+                                </tr>
+                               
+                                </tbody>
+                                
+                                {% endfor %}
+                      </table> 
+                      <!-- {% for b  in othertest  %}
+
+                      {% if b.agpar_score > 1 %}
+
+                      we Cool 
+                      {% else %}
+                  
+                      we aint cool
+                          
+                      {% endif %}
+                        
+                      {% endfor %} -->
+                </div>
+               
+            </div>
+        </div>
+{{ agpar_score_count }} | 
+{{ agparscore_count }}
+<hr>
+{{ heart_rate_count }}
+{{ heartrate_count }}
+.....
+{{ xyz }}
+
+    
+  
+  
+</div>
+{% endblock content %}

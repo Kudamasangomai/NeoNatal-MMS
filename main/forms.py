@@ -5,7 +5,8 @@ from patients.models import *
 from child.models import *
 
 
-
+class Dateinput(forms.DateInput):
+    input_type= 'date'
 
 class AddUserForm(UserCreationForm):
     username = forms.CharField(required=True)
@@ -40,11 +41,37 @@ class AddMedicalRecordForm(forms.ModelForm):
         exclude = ['userid','patientid']
 
 class Addchildform(forms.ModelForm):
+    heartrate  = forms.IntegerField(min_value = 0 , max_value= 2  )
+    muscletone  = forms.IntegerField(min_value = 0 , max_value= 2  )
+    skincolour = forms.IntegerField(min_value = 0 , max_value= 2  )
+    reflex  = forms.IntegerField(min_value = 0 , max_value= 2  )
+    Breathing = forms.IntegerField(min_value = 0 , max_value= 2  )
+    # childregno = forms.IntegerField( 
+    #     widget=forms.TextInput(attrs={
+    #         "readonly":'readonly'
+    #     })
+    # )
 
     class Meta:
         model = child
         fields = '__all__'
-        #exclude = ['userid','patientid']
+        exclude = ['motherid','nurseincharge','childregno']
+        widgets = {'Dob':Dateinput()}
+
+class Addchildtestform(forms.ModelForm):
+    heart_rate  = forms.IntegerField(min_value = 0 , max_value= 2  )
+    muscle_tone  = forms.IntegerField(min_value = 0 , max_value= 2  )
+    skin_colour = forms.IntegerField(min_value = 0 , max_value= 2  )
+    re_flex  = forms.IntegerField(min_value = 0 , max_value= 2  )
+    Brea_thing = forms.IntegerField(min_value = 0 , max_value= 2  )
+
+
+    class Meta:
+        model = childtest
+        fields = '__all__'
+        exclude = ['child_regno']
+        
+   
 
 
     

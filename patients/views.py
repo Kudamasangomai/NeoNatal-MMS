@@ -50,6 +50,7 @@ class patientdetail(LoginRequiredMixin, DetailView):
         context['medical_record'] = medical_record.objects.filter(patientid=self.kwargs['pk'])
         context['qs'] = User.objects.all()
         #context['hbccount'] = medical_record.objects.values('hbc').annotate(count=Count('hbc'))
+        context['numberofchildren'] = child.objects.filter(motherid_id = self.kwargs['pk']).count()
         context['hbccount'] = medical_record.objects.filter(patientid = self.kwargs['pk']).count()
         context['normalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__gte=11)).count()
         context['notnormalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__lte=11)).count()
@@ -68,6 +69,7 @@ class AddPatientView(LoginRequiredMixin , SuccessMessageMixin,CreateView):
     success_message = 'Patient successfully Added'
 
 class AddMedcialRecordView(LoginRequiredMixin ,SuccessMessageMixin,CreateView):
+
     model = medical_record
     form_class = AddMedicalRecordForm
     template_name = 'patients/addmedicalrecord.html'
@@ -81,6 +83,17 @@ class AddMedcialRecordView(LoginRequiredMixin ,SuccessMessageMixin,CreateView):
         form.instance.userid = self.request.user #adding the logged in user to the frm instance
         return super().form_valid(form)
 
+
+class DeletePatientView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
+    model = patient
+    success_url = reverse_lazy('patients')
+    success_message = "Patient SuccessFully Deleted"
+
+class UpdatepatientView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
+    model = patient
+    form_class = AddPatientForm
+    template_name = 'patients/addpatients.html'
+    success_message = "Patient details SuccessFully Updated"
 
 @login_required
 def assignurset(request,pk):
