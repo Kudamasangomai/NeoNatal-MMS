@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.db.models import Q ,Count
@@ -16,6 +17,8 @@ from main.forms import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from sendsms.message import SmsMessage
+from django.conf import settings
 
 class ChildListView(LoginRequiredMixin, ListView):
     model = child
@@ -38,20 +41,6 @@ class ChildDetailedView(LoginRequiredMixin,DetailView):
         ctx['agpar_result'] = (ctx['agpar_score_count'] + ctx['agparscore_count'])
         ctx['heart_rate_result'] = (ctx['heart_rate_count'] + ctx['heartrate_count'])
         return ctx
-
- 
-    #     context['medical_record'] = medical_record.objects.filter(patientid=self.kwargs['pk'])
-    #     #context['hbccount'] = medical_record.objects.values('hbc').annotate(count=Count('hbc'))
-    #     context['numberofchildren'] = child.objects.filter(motherid_id = self.kwargs['pk']).count()
-    #     context['hbccount'] = medical_record.objects.filter(patientid = self.kwargs['pk']).count()
-    #     context['normalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__gte=11)).count()
-    #     context['notnormalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__lte=11)).count()
-    #     if context['hbccount'] == 0 :
-    #         return context
-    #     context['survival'] = ((context['normalhbc'] / context['hbccount']) * 100)
-    #     context['nochancesurvival'] = ((context['notnormalhbc'] / context['hbccount']) * 100)
-    #     return context
-
 
 class AddChildview(LoginRequiredMixin, SuccessMessageMixin,CreateView):
     model = child
@@ -87,3 +76,14 @@ class  AddTestview(LoginRequiredMixin, SuccessMessageMixin,CreateView):
         child_regno = child.objects.get(childregno =self.kwargs['childregno'])    
         form.instance.child_regno = child_regno.childregno
         return super().form_valid(form)
+
+
+def sendmsg(request):
+    # frm = '+263777696355'
+    # to = '+263718354315'
+    # text = 'Please remember to pick up the bread before coming'
+   
+    # message = SmsMessage(body='lolcats make me hungry', from_phone='+263777696355', to=['+263718354315'])
+    # message.send()
+    from sendsms import api
+    api.send_sms(body='I can haz txt', from_phone='+263777696355', to=['+263718354315'])

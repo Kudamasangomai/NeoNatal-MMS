@@ -58,6 +58,7 @@ class Addchildform(forms.ModelForm):
         exclude = ['motherid','nurseincharge','childregno']
         widgets = {'Dob':Dateinput()}
 
+
 class Addchildtestform(forms.ModelForm):
     heart_rate  = forms.IntegerField(min_value = 0 , max_value= 2  )
     muscle_tone  = forms.IntegerField(min_value = 0 , max_value= 2  )

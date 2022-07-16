@@ -1,5 +1,6 @@
 {% extends "main/header.html "%}
 {% load static  %}
+{% load mathfilters %}
 {% block content%}
 
 <br/>
@@ -29,6 +30,7 @@
                               <th scope="col">Breathing</th>
                               <th scope="col">Muscle Tone</th>
                              <th scope="col">AgPar Score</th>
+                             <th scope="col">predict</th>
                              <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -43,6 +45,30 @@
                                   <th scope="row">{{  object.Breathing }}</th>
                                   <th scope="row">{{  object.muscletone}}</th>
                                   <th scope="row"> {{ object.agparscore }}</th>
+                                  <th scope="row">
+                                        
+                                        {% if object.heartrate < 1 %}
+                                            dead
+
+                                            {% else %}
+                                      
+                                            
+                                        
+                                        {% if object.agparscore < 7 and object.heartrate <= 1 %}
+                                            The child need more atention since the heart is not perfoming very well.
+                                            the child has {{ object.heartrate|div:2|mul:100 }}% of surviving
+                                       
+                                         {% elif  object.agparscore < 7 and object.heartrate > 1 %}
+
+                                         The child is well since the heart is  perfoming very well.
+                                         the child has {{ object.heartrate|div:2|mul:100 }}% of surviving.
+                                         look in the other factors for a health baby
+
+                                            {% endif %}
+                                            
+                                            {% endif %}
+
+                                  </th>
                                 
                                  
                                   
@@ -70,6 +96,30 @@
                                     <th scope="row">   {{ a.Brea_thing }}</th>
                                     <th scope="row">   {{ a.muscle_tone }}</th>
                                     <th scope="row">   {{ a.agpar_score }}</th>
+                                    <th scope="row">   
+
+                                        {% if a.agpar_score < 7 and a.heart_rate <= 1 %}
+                                            
+                                        The child need more atention since the heart is not perfoming very well.
+                                        The child has {{ object.heartrate|div:2|mul:100 }}% of surviving
+                                   
+                                     {% elif  a.agpar_score < 7 and a.heart_rate > 1 %}
+
+
+                                     The child is well since the heart is  perfoming very well.
+                                     The child has {{ object.heartrate|div:2|mul:100 }}% of surviving.
+                                     look in the other factors for a health baby
+
+                                     {% elif a.agpar_score > 7 and a.heart_rate < 1 %}
+                                            ma1
+                                    {% elif a.agpar_score > 7 and a.heart_rate > 1 %}
+                                            The baby is fit and very very fine and have a {{ a.heart_rate|div:2|mul:100 }}%
+                                            chance of surviving
+
+                                    {% elif a.heart_rate == 0 %}
+                                    dead
+                                    {% endif %}
+                                    </th>
                                  
                                     <th><div class="btn-group dropleft">
                                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -92,29 +142,19 @@
                                 
                                 {% endfor %}
                       </table> 
-                      <!-- {% for b  in othertest  %}
+                    
 
-                      {% if b.agpar_score > 1 %}
-
-                      we Cool 
-                      {% else %}
-                  
-                      we aint cool
-                          
-                      {% endif %}
-                        
-                      {% endfor %} -->
                 </div>
                
             </div>
         </div>
-{{ agpar_score_count }} | 
-{{ agparscore_count }}
+<!-- {{ agpar_score_count }} | 
+{{ agparscore_count }} -->
 <hr>
-{{ heart_rate_count }}
+<!-- {{ heart_rate_count }}
 {{ heartrate_count }}
 .....
-{{ xyz }}
+{{ xyz }} -->
 
     
   
