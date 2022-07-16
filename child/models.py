@@ -49,7 +49,7 @@ class child(models.Model):
      #                                )
 
      #        print(message.sid)
-     #    return super().save(*args, **kwargs)
+     ##    return super().save(*args, **kwargs)
 
 
 
