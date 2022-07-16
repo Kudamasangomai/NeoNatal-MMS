@@ -29,8 +29,7 @@
 
 
 	<form class="form-signin" method="post">
- <!-- <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-  <h2 class="h3 mb-3 font-weight-normal" style="color:black;">Please sign in</h2>
+  <h2 class="h3 mb-3 font-weight-normal" style="color:black;">Sign in</h2>
 
   
 			{% csrf_token %}
@@ -39,8 +38,11 @@
 
 
   
-  <button class="btn btn-lg btn-primary btn-block" type="submit" class="loginfont">Sign in</button>
-  <p style="color:white;"><a href="{% url 'reset_password' %}">forgot password</a></p>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" class="loginfont">
+  Sign in
+  </button>
+  <br/>
+  <p style="color:white;"><a  style="color:white;" href="{% url 'reset_password' %}">forgot password</a></p>
   <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
 </form>
 

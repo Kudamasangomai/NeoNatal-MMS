@@ -18,7 +18,7 @@
                     </div>
                 </div>
             
-                <div class="col-sm-10">
+                <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
 
@@ -55,14 +55,19 @@
                                             
                                         
                                         {% if object.agparscore < 7 and object.heartrate <= 1 %}
-                                            The child need more atention since the heart is not perfoming very well.
-                                            the child has {{ object.heartrate|div:2|mul:100 }}% of surviving
+                                            The child need more atention since the heart is <br/> not perfoming very well.
+                                            the child has {{ object.heartrate|div:2|mul:100 }}% of surviving.
+
+                                            <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
+                                            <div class="progress"><div class="progress-bar bg-c-red" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
                                        
                                          {% elif  object.agparscore < 7 and object.heartrate > 1 %}
 
                                          The child is well since the heart is  perfoming very well.
                                          the child has {{ object.heartrate|div:2|mul:100 }}% of surviving.
-                                         look in the other factors for a health baby
+                                         look in the other factors for a health baby.
+                                         <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
+                                         <div class="progress"><div class="progress-bar bg-c-green" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
 
                                             {% endif %}
                                             
@@ -100,8 +105,11 @@
 
                                         {% if a.agpar_score < 7 and a.heart_rate <= 1 %}
                                             
-                                        The child need more atention since the heart is not perfoming very well.
+                                        The child need more atention since the heart is <br/> not perfoming very well.
                                         The child has {{ object.heartrate|div:2|mul:100 }}% of surviving
+                                        <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
+                                            <div class="progress"><div class="progress-bar bg-c-red" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
+                                       
                                    
                                      {% elif  a.agpar_score < 7 and a.heart_rate > 1 %}
 
@@ -113,8 +121,10 @@
                                      {% elif a.agpar_score > 7 and a.heart_rate < 1 %}
                                             ma1
                                     {% elif a.agpar_score > 7 and a.heart_rate > 1 %}
-                                            The baby is fit and very very fine and have a {{ a.heart_rate|div:2|mul:100 }}%
-                                            chance of surviving
+                                            The baby is fit and very very fine and <br/> have a {{ a.heart_rate|div:2|mul:100 }}%
+                                            chance of surviving.
+                                            <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
+                                            <div class="progress"><div class="progress-bar bg-c-green" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
 
                                     {% elif a.heart_rate == 0 %}
                                     dead
@@ -160,4 +170,5 @@
   
   
 </div>
+
 {% endblock content %}

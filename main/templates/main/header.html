@@ -1,188 +1,259 @@
 {% load static  %}
 {% load crispy_forms_tags %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.80.0">
 
+<head>
+    <title>NeoNatal</title>
+        <!-- Favicon icon -->
+        <link rel="icon" href="{% static 'main/assets/images/favicon.ico' %}" type="image/x-icon">
+        <!-- Google font-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+        <!-- waves.css -->
+        <link rel="stylesheet" href="{% static 'main/assets/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+        <!-- Required Fremwork -->
+        <link rel="stylesheet" type="text/css" href="{% static 'main/assets/css/bootstrap/css/bootstrap.min.css' %}">
+        <!-- waves.css -->
+        <link rel="stylesheet" href="{% static 'main/assets/pages/waves/css/waves.min.css' %}" type="text/css" media="all">
+        <!-- themify icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'main/assets/icon/themify-icons/themify-icons.css' %}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" type="text/css" href="{% static 'main/assets/icon/font-awesome/css/font-awesome.min.css' %}">
+        <!-- scrollbar.css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'main/assets/css/jquery.mCustomScrollbar.css' %}">
+        <!-- am chart export.css -->
+        <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css' %}" type="text/css" media="all" />
+        <!-- Style.css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'main/assets/css/style.css' %}">
 
-    {% if title %}
-    <title> UZ - {{ title }}</title>
-    {% else %}
-    <title> Neo</title>
-    {% endif %}
+</head>
+<body>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">   
-
-    <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="{% static 'main/css/bootstrap.css' %}">
-<link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'main/css/header.css' %}">
-<script src="https://unpkg.com/htmx.org@1.6.0"></script>
-<script src="{% static 'main/js/offlinehtmx.min.js' %}"></script>
-
-
-
-
-
-
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .h1test{
-
-        color: red;
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
- 
-  </head>
-  <body>
-    
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">NeoNatal</a>
-
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar  pcoded-header iscollapsed" header-theme="theme1" pcoded-header-position="fixed">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-addon search-close"><i class="ti-close"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo">
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                  
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                            </li>
+                            <li class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-addon search-close"><i class="ti-close"></i></span>
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <i class="ti-bell"></i>
+                                    <span class="badge bg-c-red"></span>
+                                </a>
+                                <ul class="show-notification">
+                                    <li>
+                                        <h6>Notifications</h6>
+                                        <label class="label label-danger">New</label>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <div class="media">
+                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="notification-user">John Doe</h5>
+                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                                                <span class="notification-time">30 minutes ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                 
+                                 
+                                </ul>
+                            </li>
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>John Doe</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="user-profile.html">
+                                            <i class="ti-user"></i> Profile
+                                        </a>
+                                    </li>
+                                    <li class="waves-effect waves-light">
+                                        <a href="email-inbox.html">
+                                            <i class="ti-email"></i> My Messages
+                                        </a>
+                                    </li>
+                                 
+                                    <li class="waves-effect waves-light">
+                                        <a href="auth-normal-sign-in.html">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
   
-  <ul class="navbar-nav px-3">
-  	 <li class="nav-item text-nowrap">
-      {% if user.is_authenticated %}
-      <a class="nav-link" href="#">{{user.username|capfirst }}</a>
-    </li>
-    <li class="nav-item text-nowrap">
-      <a href="{% url 'logout' %}">Logout</a>
-    </li>
-  </ul>
-   {% else %}
-
-     {% endif %}
-</nav>
-
-<div class="container-fluid">
-  <div class="row">
-     {% if user.is_authenticated %}
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="sidebar-sticky pt-5">
-
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'dashboard' %}">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
-            </a>
-          </li>
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle">
+                          <a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details">
+                                            {{user.username|capfirst }}
+                                    </div>
+                                </div>
           
-         {% if user.is_superuser  %}
-         
+                                
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+                                    <div class="form-group form-primary">
+                                    
+                                        <span class="form-bar"></span>
+                                       
+                                    </div>
+                                </form>
+                            </div>
+                          
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="active">
+                                    <a href="{% url 'dashboard' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li >
+                                    <a href="{% url 'users' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Users</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li >
+                                    <a href="{% url 'patients' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Patients</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li >
+                                    <a href="{% url 'child-list' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">    Children</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+
+                                <li >
+                                    <a href="{% url 'logout' %}" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">    Logout</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                             
+                              
+                            </ul>
+                            
+                          
           
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'users' %}">
-              <span data-feather="users"></span>
-              
-              Users
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'patients' %}">
-              <span data-feather="users"></span>
-              
-           Patients
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'child-list' %}">
-             <span data-feather="file"></span>
-             Children
-           </a>
-         </li>
-          {% endif %}
-        
-        
-
-            <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Account
-            </a>
-          </li>
-
+                        
           
-        </ul>
+                          
+                           
+                        </div>
+                    </nav>
+                    
+<div class="pcoded-content">
+    <!-- Page-header start -->
+     <!-- Page-header end -->
+     <div class="pcoded-inner-content">
+                    {% block content%}
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span></span>
-          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-        
-        </ul>
+
+                    {% endblock content%}
+                    </div>  
+                    </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </nav>
-{% else %}
-
-     {% endif %}
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-
-  
-
       
-     
-
-      {% block content%}
-
-
-      {% endblock content%}
-      
-    </main>
-  </div>
-</div>
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-  <script src="{% static 'main/js/popper.min.js' %}"></script>
-  <script src="{% static 'main/js/jqueryv.js' %}"></script>  
-  <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'main/js/bootstrap.js' %}"></script>
-  <script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'main/js/bootstrap.bundle.js' %}"></script>   
-  <script src="{% static 'main/js/jquery-slim.min.js' %}"></script>
- 
-
-  <script>
-    document.body.addEventListener('htmx:configRequest', (event) => {
-        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; //insert csrf token when performing AJAX request 
-    })
-    </script>
- 
-  
+      <script type="text/javascript" src="{% static 'main/assets/js/jquery/jquery.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'main/assets/js/jquery-ui/jquery-ui.min.js' %} "></script>
+      <script type="text/javascript" src="{% static 'main/assets/js/popper.js/popper.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'main/assets/js/bootstrap/js/bootstrap.min.js' %} "></script>
+      <script type="text/javascript" src="{% static 'main/assets/pages/widget/excanvas.js' %} "></script>
+      <!-- waves js -->
+      <script src="assets/pages/waves/js/waves.min.js' %}"></script>
+      <!-- jquery slimscroll js -->
+      <script type="text/javascript" src="{% static 'main/assets/js/jquery-slimscroll/jquery.slimscroll.js' %} "></script>
+      <!-- modernizr js -->
+      <script type="text/javascript" src="{% static 'main/assets/js/modernizr/modernizr.js' %} "></script>
+      <!-- slimscroll js -->
+      <script type="text/javascript" src="{% static 'main/assets/js/SmoothScroll.js' %}"></script>
+      <script src="assets/js/jquery.mCustomScrollbar.concat.min.js' %} "></script>
+      <!-- Chart js -->
+      <script type="text/javascript" src="{% static 'main/assets/js/chart.js/Chart.js' %}"></script>
+      <!-- amchart js -->
+      <script src="https://www.amcharts.com/lib/3/amcharts.js' %}"></script>
+      <script src="{% static 'main/assets/pages/widget/amchart/gauge.js' %}"></script>
+      <script src="{% static 'main/assets/pages/widget/amchart/serial.js' %}"></script>
+      <script src="{% static 'main/assets/pages/widget/amchart/light.js' %}"></script>
+      <script src="{% static 'main/assets/pages/widget/amchart/pie.min.js' %}"></script>
+      <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+      <!-- menu js -->
+      <script src="{% static 'main/assets/js/pcoded.min.js' %}"></script>
+      <script src="{% static 'main/assets/js/vertical-layout.min.js' %} "></script>
+      <!-- custom js -->
+      <script type="text/javascript" src="{% static 'main/assets/pages/dashboard/custom-dashboard.js' %}"></script>
+      <script type="text/javascript" src="{% static 'main/assets/js/script.js' %} "></script>
   </body>
-</html>

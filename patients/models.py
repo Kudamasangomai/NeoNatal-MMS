@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 # from django.utils import timezone
 from datetime import datetime ,timedelta
 from django.core.validators import  MaxValueValidator,MinValueValidator
-
+from neonatal.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
 from django.urls import reverse
+from django.contrib import messages
 # from django.urls import reverse
 # User._meta.get_field('email').verbose_name = "new name"
 
@@ -26,9 +28,21 @@ class patient(models.Model):
 
     def __str__(self):
         return self.patient_name
+
     
     def get_absolute_url(self):       
         return reverse('patient-detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        r = User.objects.get(id=self.patient_assignednurse.id)
+        if r: 
+                            
+            subject = "New patient - Neo Natal"   
+            message = " A new Patient has been assigned to you."	
+            recipient_list = [r.email,]
+            send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
+            print(r.email)
+            return super().save(*args, **kwargs)
 
 class medical_record(models.Model):
     hiv_status=(
