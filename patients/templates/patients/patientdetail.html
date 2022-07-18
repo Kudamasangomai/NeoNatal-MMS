@@ -65,6 +65,7 @@
 
 
 <hr>
+
 {{ survival }} / {{ nochancesurvival }}<br/>
 {% if survival  %}
   
@@ -79,7 +80,12 @@ The baby has a {{ nochancesurvival|floatformat:0 }}% chance of not surviving bec
 
 no data
 {% endif %}   
+<hr>
 
+<!-- {{ bmicount }} -->
+
+
+  
    
     </div>
      </div>
@@ -118,11 +124,11 @@ no data
       <td>{{ pmr.height }}</td>
 
       {% if pmr.bmi < 18 %}
-      <td style="background-color: orange;">{{ pmr.bmi  }}</td>
+      <td style="background-color: orange;color:white">{{ pmr.bmi  }}</td>
       {% elif pmr.bmi > 18 and pmr.bmi <= 25  %}
-      <td style="background-color: green;">{{ pmr.bmi  }}</td>
+      <td style="background-color: green;color:white;">{{ pmr.bmi  }}</td>
       {% else %}
-      <td style="background-color: red;">{{ pmr.bmi  }}</td>
+      <td style="background-color: red;color:white;">{{ pmr.bmi  }}</td>
       {% endif %}
       <td> 
 

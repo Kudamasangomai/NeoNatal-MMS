@@ -51,6 +51,7 @@ class patientdetail(LoginRequiredMixin, DetailView):
         context['medical_record'] = medical_record.objects.filter(patientid=self.kwargs['pk'])
         context['qs'] = User.objects.all()
         #context['hbccount'] = medical_record.objects.values('hbc').annotate(count=Count('hbc'))
+        context['bmicount'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q(bmi__lte=18) ).count()
         context['numberofchildren'] = child.objects.filter(motherid_id = self.kwargs['pk']).count()
         context['hbccount'] = medical_record.objects.filter(patientid = self.kwargs['pk']).count()
         context['normalhbc'] = medical_record.objects.filter(Q(patientid = self.kwargs['pk']) & Q( hbc__gte=11)).count()
