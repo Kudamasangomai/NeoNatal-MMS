@@ -2,24 +2,41 @@
 {% load static  %}
 {% load mathfilters %}
 {% block content%}
+<style>
+      #childdetail{
 
-<br/>
+   background: url('{% static "main8/images/neo.png" %}');
+  
+  background-repeat: no-repeat;
+  background-size: cover; */
+  
+  
+ 
+} 
+#childtable{
+    background-color: white;
+    opacity: 0.9;
+    color: black;
+}
+</style>
+<br/><br/>
 <h5>Child birth number {{ object.childregno }}</h5>
 <h5>Mother - {{ object.motherid.patient_surname }}</h5>
-
+<br/>
 
 <div class="container bootstrap snippets bootdey">
    
         <div class="post-list">
             <div class="row">
                 <div class="col-sm-2">
+                  
                     <div class="picture">
-                        <img alt="Opt wizard thumbnail" src="https://bootdey.com/img/Content/user_1.jpg">
+                        <img alt="Child" src="{% static 'main/images/neo.png' %}">
                     </div>
                 </div>
             
-                <div class="table-responsive">
-                    <table class="table table-hover">
+                <div class="table-responsive" id="childdetail">
+                    <table class="table table-hover" id="childtable">
                         <thead>
 
                             <tr>
@@ -30,7 +47,7 @@
                               <th scope="col">Breathing</th>
                               <th scope="col">Muscle Tone</th>
                              <th scope="col">AgPar Score</th>
-                             <th scope="col">predict</th>
+                             <th scope="col">prediction</th>
                              <th scope="col">Action</th>
                             </tr>
                             </thead>
@@ -68,7 +85,12 @@
                                          look in the other factors for a health baby.
                                          <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
                                          <div class="progress"><div class="progress-bar bg-c-green" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
+                                         {% elif object.agparscore > 6 and object.heartrate < 2 %}
+                                         The child need more atention since the heart is <br/> not perfoming very well.
+                                         the child has {{ object.heartrate|div:2|mul:100 }}% of surviving.
 
+                                         <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
+                                         <div class="progress"><div class="progress-bar bg-c-red" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
                                             {% endif %}
                                             
                                             {% endif %}
@@ -115,16 +137,22 @@
 
 
                                      The child is well since the heart is  perfoming very well.
-                                     The child has {{ object.heartrate|div:2|mul:100 }}% of surviving.
-                                     look in the other factors for a health baby
+                                     The child has {{ a.heart_rate|div:2|mul:100 }}% of surviving.
+                                     look in the other factors for a health baby.
+                                     <p class="text-muted"><span class="f-left">{{ a.heart_rate|div:2|mul:100 }}%</span></p>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-c-green" style=" width: {{ a.heart_rate|div:2|mul:100 }}% "></div>
+                                            </div>
 
                                      {% elif a.agpar_score > 7 and a.heart_rate < 1 %}
                                             ma1
                                     {% elif a.agpar_score > 7 and a.heart_rate > 1 %}
                                             The baby is fit and very very fine and <br/> have a {{ a.heart_rate|div:2|mul:100 }}%
                                             chance of surviving.
-                                            <p class="text-muted"><span class="f-left">{{ object.heartrate|div:2|mul:100 }}%</span></p>
-                                            <div class="progress"><div class="progress-bar bg-c-green" style="width: {{ object.heartrate|div:2|mul:100 }}%"></div></div>
+                                            <p class="text-muted"><span class="f-left">{{ a.heart_rate|div:2|mul:100 }}%</span></p>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-c-green" style=" width: {{ a.heart_rate|div:2|mul:100 }}% "></div>
+                                            </div>
 
                                     {% elif a.heart_rate == 0 %}
                                     dead

@@ -11,32 +11,34 @@
 
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="#">Add Child</a></button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="#">CSV</a></button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Pdf</button>
       </div>
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-        <span data-feather="calendar"></span>
-        This week
-      </button>
+    
     </div>
   </div>
   {% include "main/messages.html" %}
 
 
-
+  <form class="form-inline my-6 my-lg-6" method="Post"  action="{%  url 'searched-child' %}">
+    {% csrf_token %}
+     <input class="form-control mr-sm-2" name="searchedchild" required="required" type="text" placeholder="Search" aria-label="Search">
+     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   
+   </form>
 
 <table class="table table-hover">
 <thead class="thead-dark">
 
 <tr>
    <th scope="col">Child id</th>
-  <th scope="col">Mother's Name</th>
+  <!-- <th scope="col">Mother's Name</th>
   <th scope="col">Heart Rate</th>
   <th scope="col">Skin Colour</th>
   <th scope="col">Reflex</th>
   <th scope="col">Breathing</th>
-  <th scope="col">Muscle Tone</th>
- <th scope="col">AgPar Score</th>
+  <th scope="col">Muscle Tone</th>-->
+ <th scope="col">D.O.B</th> 
  <th scope="col">Action</th>
 </tr>
 </thead>
@@ -44,25 +46,24 @@
 {% for child in children %}
 <tr>
 <th scope="row">{{  child.childregno}}</th>
-   <th scope="row">{{  child.motherid.patient_name}} {{ child.motherid.patient_surname}}</th>
+   <!-- <th scope="row">{{  child.motherid.patient_name}} {{ child.motherid.patient_surname}}</th>
   <th scope="row">{{  child.heartrate}}</th>
   <th scope="row">{{  child.skincolour}}</th>
   <th scope="row">{{  child.reflex}}</th>
   <th scope="row">{{  child.Breathing }}</th>
-  <th scope="row">{{  child.muscletone}}</th>
-  <th scope="row"> {{ child.agparscore }}</th>
+  <th scope="row">{{  child.muscletone}}</th>-->
+  <th scope="row"> {{ child.Dob|date:"d M Y" }}</th> 
 
  
   
   <td><div class="btn-group dropleft">
-<button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 Action
 </button>
 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<a class="dropdown-item" href=" url 'add-medical-record' child.id ">Create MR</a>
+
 <a class="dropdown-item" href="{% url 'child-detail' child.id %}">View</a>
-<a class="dropdown-item" href=" url 'child-update' child.id ">Update</a>
-<a class="dropdown-item" href=" url 'delete-child' child.id  ">Delete</a>
+
 
 
 </div>

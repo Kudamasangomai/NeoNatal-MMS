@@ -24,6 +24,7 @@ class patient(models.Model):
     patient_blood_type = models.CharField(max_length=10,choices = blood_type)  
     patient_condtion = models.CharField(max_length=100,default='')
     patient_assignednurse = models.ForeignKey(User,default=0,on_delete=models.CASCADE, db_constraint=False)
+    patient_date_added = models.DateTimeField(default=datetime.today)
 
 
     def __str__(self):
@@ -33,16 +34,16 @@ class patient(models.Model):
     def get_absolute_url(self):       
         return reverse('patient-detail', kwargs={'pk': self.pk})
 
-    def save(self, *args, **kwargs):
-        r = User.objects.get(id=self.patient_assignednurse.id)
-        if r: 
+    # def save(self, *args, **kwargs):
+    #     r = User.objects.get(id=self.patient_assignednurse.id)
+    #     if r: 
                             
-            subject = "New patient - Neo Natal"   
-            message = " A new Patient has been assigned to you."	
-            recipient_list = [r.email,]
-            send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
-            print(r.email)
-            return super().save(*args, **kwargs)
+    #         subject = "New patient - Neo Natal"   
+    #         message = " A new Patient has been assigned to you."	
+    #         recipient_list = [r.email,]
+    #         send_mail(subject,message,EMAIL_HOST_USER,recipient_list,fail_silently = False)
+    #         print(r.email)
+    #         return super().save(*args, **kwargs)
 
 class medical_record(models.Model):
     hiv_status=(

@@ -17,15 +17,8 @@
           </button>
         </div>
       </div>
-  {% if messages %}
-{% for message in messages%}
+      {% include "main/messages.html" %}
 
-<div class="alert alert-{{message.tags}}" role="alert">
-
-  {{ message }}
-</div>
-{% endfor %}
-{% endif %}
  <form class="form-inline my-4 my-lg-2" method="Post"  action="  url 'searched-books' " >
      {% csrf_token %}
       <input class="form-control mr-sm-2" name="searchedbook" required="required" type="text" placeholder="Search" aria-label="Search">

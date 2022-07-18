@@ -16,6 +16,7 @@ from patients.models import *
 from main.forms import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from sendsms.message import SmsMessage
 from django.conf import settings
@@ -24,6 +25,12 @@ class ChildListView(LoginRequiredMixin, ListView):
     model = child
     template_name = 'child/childlist.html'
     context_object_name = 'children'
+
+    def get_context_data(self,**kwargs):
+        context = super(ChildListView, self).get_context_data(**kwargs)
+        queryset = child.objects.values('motherid').annotate(count=Count('motherid')).order_by('motherid')
+        context['count'] = queryset
+        return context
 
 class ChildDetailedView(LoginRequiredMixin,DetailView):
     model = child
@@ -78,12 +85,15 @@ class  AddTestview(LoginRequiredMixin, SuccessMessageMixin,CreateView):
         return super().form_valid(form)
 
 
-def sendmsg(request):
-    # frm = '+263777696355'
-    # to = '+263718354315'
-    # text = 'Please remember to pick up the bread before coming'
-   
-    # message = SmsMessage(body='lolcats make me hungry', from_phone='+263777696355', to=['+263718354315'])
-    # message.send()
-    from sendsms import api
-    api.send_sms(body='I can haz txt', from_phone='+263777696355', to=['+263718354315'])
+@login_required
+def search_child(request):
+	if request.method == 'POST':
+		searchedchild = request.POST.get('searchedchild')
+		children = child.objects.filter(
+			Q(childregno__contains = searchedchild)
+		
+
+			)
+		return render(request,'child/childlist.html',{'children':children})
+	else:
+		return render(request,'child/childlist.html')

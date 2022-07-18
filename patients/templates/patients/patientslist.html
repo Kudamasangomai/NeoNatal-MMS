@@ -13,19 +13,11 @@
             <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'add-patient' %}">Add Patient</a></button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
+       
         </div>
       </div>
       {% include "main/messages.html" %}
- <!-- <form class="form-inline my-4 my-lg-2" method="Post"  action="  url 'searched-books' " >
-     {% csrf_token %}
-      <input class="form-control mr-sm-2" name="searchedbook" required="required" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    
-    </form> -->
+
 
 
 
@@ -33,9 +25,9 @@
   <thead class="thead-dark">
 
     <tr>
-       <th scope="col">id</th>
-      <th scope="col">name</th>
-      <th scope="col">surname</th>
+       <th scope="col">name </th>
+       <th> Date Joined</th>
+   
       <th scope="col">Assigend nurse</th>
    
        <th scope="col">Action</th>
@@ -44,9 +36,18 @@
   <tbody>
     {% for patient  in patients %}
     <tr>
-       <th scope="row">{{  patient.id}}</th>
-      <th scope="row">{{  patient.patient_name}}</th>
-      <th scope="row">{{  patient.patient_surname}}</th>
+       <th scope="row">
+        
+        <div class="d-inline-block align-middle">
+          <img src="{% static 'main/assets/images/default-user.jpg' %}" alt="user image" class="img-radius img-40 align-top m-r-15">
+          <div class="d-inline-block">
+              <h6>{{  patient.patient_name}} {{  patient.patient_surname}}</h6>
+              <p class="text-muted m-b-0">{{ patient.patient_nid }}</p>
+          </div>
+      </div>
+      <th>{{ patient.patient_date_added }}</th>
+       </th>
+ 
       <th scope="row">{{  patient.patient_assignednurse.first_name.0}} - {{  patient.patient_assignednurse.last_name|capfirst}}</th>
 
      

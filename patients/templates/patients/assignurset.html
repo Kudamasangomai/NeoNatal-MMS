@@ -1,13 +1,13 @@
 {% extends "main/header.html "%}
 {% load static  %}
 {% block content%}
-
-{{   patientobj.patient_surname }}
+<br/><br/>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <p>Assigning Nurse to  {{   patientobj.patient_name}}  {{  patientobj.patient_surname}} </p>
+            <h3>Assigning Nurse to  {{   patientobj.patient_name}}  {{  patientobj.patient_surname}} </h3>
+            <br/>
             <form  method="Post" action="{% url 'assign-nurse' patientobj.id %}" >
              {% csrf_token %}
        
@@ -26,5 +26,5 @@
 <button type="submit" class="btn btn-success">Assign</button>
 </form>
 
-<button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+<button class="btn btn-primary"  data-dismiss="modal"><a href="{% url 'patients' %}">Cancel</a></button>
 {% endblock %}

@@ -3,8 +3,17 @@
 {% load crispy_forms_tags %}
 {% block content%}
  
+<br/>
+{% if object.patient_name %}
+  
+<h3>Update  Patient details </h3>
+{% else %}
 
-<h1>Add New Patient</h1>
+<h3>Add New Patient</h3>
+
+{% endif %}
+  
+
 
  <form method="POST" enctype="multipart/form-data" autocomplete="off">
        {% csrf_token %}

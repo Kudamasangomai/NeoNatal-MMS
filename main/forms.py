@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from patients.models import *
 from child.models import *
+from datetime import datetime
 
 
 class Dateinput(forms.DateInput):
@@ -46,17 +47,16 @@ class Addchildform(forms.ModelForm):
     skincolour = forms.IntegerField(min_value = 0 , max_value= 2  )
     reflex  = forms.IntegerField(min_value = 0 , max_value= 2  )
     Breathing = forms.IntegerField(min_value = 0 , max_value= 2  )
-    # childregno = forms.IntegerField( 
-    #     widget=forms.TextInput(attrs={
-    #         "readonly":'readonly'
-    #     })
-    # )
+
 
     class Meta:
         model = child
         fields = '__all__'
         exclude = ['motherid','nurseincharge','childregno']
         widgets = {'Dob':Dateinput()}
+    
+
+
 
 
 class Addchildtestform(forms.ModelForm):
