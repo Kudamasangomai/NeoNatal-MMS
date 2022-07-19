@@ -1,4 +1,5 @@
 {% extends "main/header.html" %}
+{% load mathfilters %}
 {% load static  %}
 
 <!-- Latest compiled and minified CSS -->
@@ -109,7 +110,7 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
                                 <div class="card-block">
                                     <div class="row align-items-center">
                                         <div class="col-8">
-                                            <h4 class="text-c-blue">{{ lowsurvival }}</h4>
+                                            <h4 class="text-c-blue">0</h4>
                                             <h6 class="text-muted m-b-0">x</h6>
                                         </div>
                                         <div class="col-4 text-right">
@@ -133,7 +134,7 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
             <div class="col-xl-8 col-md-12">
                             <div class="card table-card">
                                 <div class="card-header">
-                                    <h5>Projects</h5>
+                                    <h5>Top priority</h5>
                                     <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -160,9 +161,10 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    Assigned</th>
-                                                <th>Name</th>
-                                                <th>Due Date</th>
+                                                   Child Info
+                                                </th>
+                                                <th>Assigned Nurse</th>
+                                                <th>Date of Birth</th>
                                                 <th class="text-right">Priority</th>
                                             </tr>
                                             </thead>
@@ -190,15 +192,15 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>Able Pro</td>
-                                                <td>Jun, 26</td>
-                                                <td class="text-right"><label class="label label-danger">Low</label></td>
+                                                <td>{{ child.nurseincharge.last_name }}</td>
+                                                <td>{{ child.Dob|date:"d M Y" }}</td>
+                                                <td class="text-right"><label class="label label-danger">High</label></td>
                                             </tr>
                                             {% endfor %}
                                             </tbody>
                                         </table>
                                         <div class="text-right m-r-20">
-                                            <a href="#!" class=" b-b-primary text-primary">View all Projects</a>
+                                            <a href="#!" class=" b-b-primary text-primary">View all Children</a>
                                         </div>
                                     </div>
                                 </div>
@@ -209,32 +211,21 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
                         
                             <div class="card quater-card">
                                 <div class="card-block">
-                                    <h6 class="text-muted m-b-15">This Quarter</h6>
-                                    <h4>$3,9452.50</h4>
-                                    <p class="text-muted">$3,9452.50</p>
-                                    <h5>87</h5>
-                                    <p class="text-muted">Online Revenue<span class="f-right">80%</span></p>
-                                    <div class="progress"><div class="progress-bar bg-c-blue" style="width: 80%"></div></div>
-                                    <h5 class="m-t-15">68</h5>
-                                    <p class="text-muted">Offline Revenue<span class="f-right">50%</span></p>
-                                    <div class="progress"><div class="progress-bar bg-c-green" style="width: 50%"></div></div>
+                                    <h6 class="text-muted m-b-15">Born Per Month</h6>
+                                    <canvas id="mylineChart" width="200" height="200"></canvas>
                                 </div>
                             </div>
                                <div class="card ">
                                 <div class="card-header">
-                                    <h5>Team Members</h5>
+                                    <h5>Ratio Rate</h5>
                                     <div class="card-header-right">
-                                      
+                                       
+                       
                                     </div>
                                 </div>
                                 <div class="card-block">
-                                    <div class="align-middle m-b-30">
-                                        <img src="assets/images/avatar-2.jpg" alt="user image" class="img-radius img-40 align-top m-r-15">
-                                        <div class="d-inline-block">
-                                            <h6>David Jones</h6>
-                                            <p class="text-muted m-b-0">Deveddoper</p>
-                                        </div>
-                                    </div>
+                                    {{ lowsurvival|div:totalchildren|mul:100 }}
+                                    <canvas id="myPieChart" width="10" height="10"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -243,9 +234,101 @@ integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/
                 </div>
                 <!-- Page-body end -->
             </div>
+       
+     
+        <script>
+            const ctxline = document.getElementById('mylineChart').getContext('2d');
+            const mylineChart = new Chart(ctxline, {
+                type: "line",
+                data: {
+                    labels: [ 
+                    {% for b in a %}
+                     " {{  b.month|date:"M y" }}",
+                   
+                      {% endfor %}
+                
+                    ],
+                    datasets: [{
+                        label: [
+                          
+                      'Born/month'
+                      
+                      ],
+                        data: [
+                          
+                      {% for b in a %}
+                      {{ b.c }}
+                      {% if not forloop.last %},
+              {% endif %}
+                      {% endfor %}
+                        
+             
+                        
+                        ],
+                        
+                   backgroundColor: [
+                            'rgba(0, 200, 5,0.5)',
+                         
+                          
+                            
+                        ],
+                        borderColor: [
+                            'rgba(0, 09, 0, 1)',
+                           
+                          
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+  y: {
+    ticks: {
+      stepSize: 1,
+      beginAtZero: true,
+    //   precision: 0,
       
-        </div>
+    },
+  },
+},
+      }
+            });
+            </script>
 
-
+<script>
+    const ctxpie = document.getElementById('myPieChart').getContext('2d');
+    const myPieChart = new Chart(ctxpie, {
+        type: "pie",
+        data: {
+            labels: [
+            
+            ],
+            datasets: [{
+                label: '',
+                data: [
+                  
+             {{ totalchildren }}, {{ lowsurvival }}
+                
+                 
+                
+                ],
+                
+           backgroundColor: [
+                    'rgba(0, 200, 5,0.5)',
+                    'rgba(255, 0, 1,0.5)',
+                  
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255 , 1)',
+                   
+                  
+                ],
+                borderWidth: 1
+            }]
+        },
+      
+    });
+    </script>
 
 {% endblock content %}
