@@ -22,6 +22,15 @@ from django.contrib import messages
 from main.forms import *
 from neonatal.settings import EMAIL_HOST_USER
 
+import io
+import csv
+import reportlab
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
 
 
 # Create your views here.
@@ -95,6 +104,7 @@ class UpdatepatientView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
     model = patient
     form_class = AddPatientForm
     template_name = 'patients/addpatients.html'
+    success_url = reverse_lazy('patients')
     success_message = "Patient details SuccessFully Updated"
 
 @login_required
@@ -112,7 +122,6 @@ def AssignNurseView(request,pk):
     protocol = 'http://'	
     host = request.get_host()
     post = patient.objects.get(id=pk)
-    #instance = request.POST['nurseid']
     r = User.objects.get(id=request.POST['nurseid'])
     if request.method == 'POST':
              
@@ -133,6 +142,43 @@ def delete_medical_record(request,pk):
     patientmedcicalrecord.delete()
     messages.success(request,f' record deleted')
     return HttpResponse('')
+
+def export_pdf(request):
+
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
+    textob = c.beginText()
+	#textob.setTextOrigin(inch,inch)
+    textob.setFont("Helvetica",14)
+    objpatients = patient.objects.all()
+    row = []
+    for objb in objpatients:
+        row.append(objb.patient_name)
+        row.append(objb.patient_surname)
+        row.append(objb.patient_assignednurse)
+        row.append(objb.patient_date_added)
+    for line in row:
+        textob.textLine(line)
+        c.drawText(textob)
+        c.showPage()
+        c.save()	
+        buf.seek(0)
+        return FileResponse(buf, as_attachment=True, filename='patients.pdf')
+
+
+def export_csv(request):
+    
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition']=  'attachment; filename=patients.csv'
+	writer =csv.writer(response)
+	writer.writerow(['Patient Name','Patient Surname','Assigned nurse'])
+	objpatient = patient.objects.all()
+
+
+	for obj in objpatient:
+		writer.writerow([obj.patient_name,obj.patient_surname,obj.patient_assignednurse]),
+	return response
+    
 
 
 

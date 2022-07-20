@@ -29,7 +29,7 @@ class  AddPatientForm(forms.ModelForm):
     class Meta:
         model = patient
         fields = '__all__'
-        exclude = ['id']
+        exclude = ['id','patient_date_added']
 
 class AddMedicalRecordForm(forms.ModelForm):
 

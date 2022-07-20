@@ -6,19 +6,19 @@
         {% if patientdetail %}
         <h1 class="h2"> {{ patient_name }} </h1>
   {% endif %}
-        <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-toolbar mb-4 mb-md-0">
           <div class="btn-group mr-2">
-            <a class="dropdown-item" ></a>
-            <a href="{% url 'add-medical-record' object.id %}"><button type="button"  class="btn btn-sm btn-outline-secondary">Add Medical Record</button></a>
+            
+            <a href="{% url 'add-medical-record' object.id %}"><button type="button"  class="btn btn-sm btn-outline-primary">Add Medical Record</button></a>
           </div>
           {% if survival  %}
           <div class="btn-group mr-2">
-            <a href="{% url 'add-child' object.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">Add Child</button></a>
+            <a href="{% url 'add-child' object.id %}"><button type="button" class="btn btn-sm btn-outline-primary">Add Child</button></a>
             
          </div>
             <div class="btn-group mr-2">
           
-            <a href="{% url 'add-child' object.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">View Children</button></a>
+            <a href="{% url 'add-child' object.id %}"><button type="button" class="btn btn-sm btn-outline-primary">View Children</button></a>
      </div>
      {% else %}
     

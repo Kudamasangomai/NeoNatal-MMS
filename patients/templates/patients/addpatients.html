@@ -4,9 +4,11 @@
 {% block content%}
  
 <br/>
+{{ form.errors }}
 {% if object.patient_name %}
   
 <h3>Update  Patient details </h3>
+{% include 'main/messages.html' %}
 {% else %}
 
 <h3>Add New Patient</h3>

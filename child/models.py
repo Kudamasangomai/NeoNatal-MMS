@@ -85,5 +85,12 @@ class childtest(models.Model):
 
      #        print(message.sid)
      #    return super().save(*args, **kwargs)
+
+
+# def deadchildid():
+#      return str(random.randint( 11111,30253))
+# class deadchild(models.Model):
+#       motherid = models.ForeignKey(patient,on_delete=models.CASCADE)
+#       deadchildregno = models.IntegerField(default=deadchildid)
      
     

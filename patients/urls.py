@@ -36,7 +36,10 @@ urlpatterns = [
    path('patient/addmedicalrecord/<int:pk>/',AddMedcialRecordView.as_view(),name="add-medical-record"), 
 
    path('assignurset/<int:pk>/',views.assignurset,name="assignurset"),
-   path('assign/<int:pk>/',views.AssignNurseView,name="assign-nurse")
+   path('assign/<int:pk>/',views.AssignNurseView,name="assign-nurse"),
+
+   path('export_csv/',views.export_csv,name="export-csv"),
+   path('export_pdf/',views.export_pdf,name="export-pdf"),
 
   
    

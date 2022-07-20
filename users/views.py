@@ -29,8 +29,6 @@ class  UpdateUserView(LoginRequiredMixin ,SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('users')
     success_message = "Category Successfully Updated"
 
-
-
 @login_required
 def adduser(request):
     if request.method == 'POST':

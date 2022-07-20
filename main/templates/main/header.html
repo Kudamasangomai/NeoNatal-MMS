@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <a href="#">
-                         <h3> NeoNatal</h3>
+                         <h3> NeoNatal </h3>
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -66,25 +66,38 @@
                      
                         <ul class="nav-right">
                             <li class="header-notification">
+                                
+                                {% if  my_total_patients  %}
+                                     
                                 <a href="#!" class="waves-effect waves-light">
                                     <i class="ti-bell f-28"></i>
-                                    <span class="badge bg-c-green"></span>
+                                    <span class="badge bg-c-green">{{ my_total_patients }}</span>
                                 </a>
+                                {% else %}
+                                    
+                                {% endif %}
+                               
                                 <ul class="show-notification">
                                     <li>
                                         <h6>Notifications</h6>
-                                        <label class="label label-danger">New</label>
+                                        <label class="label label-green">New</label>
                                     </li>
+                                    {% for patient in my_patients_details  %}
                                     <li class="waves-effect waves-light">
+                                       
+                                          
+                                      <a href="{% url 'patient-detail' patient.id %}">
                                         <div class="media">
-                                            <img class="d-flex align-self-center img-radius" src="assets/images/avatar-2.jpg" alt="Generic placeholder image">
+                                            <img class="d-flex align-self-center img-radius" src="{% static 'main/assets/images/default-user.jpg' %}" alt="Generic placeholder image">
                                             <div class="media-body">
-                                                <h5 class="notification-user">John Doe</h5>
-                                                <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                                <span class="notification-time">30 minutes ago</span>
+                                                <h5 class="notification-user">{{ patient.patient_name }}{{ patient.patient_surname }}</h5>
+                                                <p class="notification-msg">{{ patient.patient_date_added }}.</p>
+                                             
                                             </div>
                                         </div>
+                                    </a>
                                     </li>
+                                        {% endfor %}
                                  
                                  
                                 </ul>
@@ -106,11 +119,7 @@
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="email-inbox.html">
-                                            <i class="ti-email"></i> My Messages
-                                        </a>
-                                    </li>
+    
                                  
                                     <li class="waves-effect waves-light">
                                         <a href="{% url 'logout' %}">
@@ -135,7 +144,7 @@
                                     <img class="img-80 img-radius" src="{% static  'main/assets/images/default-user.jpg' %}" alt="User-Profile-Image">
                                     <div class="user-details">
                                         <span id="more-details">
-                                            {{user.username|capfirst }}
+                                            {{user.username|capfirst }} 
                                     </div>
                                 </div>
           
@@ -159,6 +168,10 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+                                
+                                {% if is_admin %}
+                                                                 
+                                    
                                 <li >
                                     <a href="{% url 'users' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
@@ -166,6 +179,7 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+                                {% endif %}
                                 <li >
                                     <a href="{% url 'patients' %}" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-drupal" ></i><b>D</b></span>

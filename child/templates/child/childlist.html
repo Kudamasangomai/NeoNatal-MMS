@@ -9,13 +9,7 @@
      
    </h2>
 
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <div class="btn-group mr-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="#">CSV</a></button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Pdf</button>
-      </div>
-    
-    </div>
+
   </div>
   {% include "main/messages.html" %}
 
@@ -32,12 +26,7 @@
 
 <tr>
    <th scope="col">Child id</th>
-  <!-- <th scope="col">Mother's Name</th>
-  <th scope="col">Heart Rate</th>
-  <th scope="col">Skin Colour</th>
-  <th scope="col">Reflex</th>
-  <th scope="col">Breathing</th>
-  <th scope="col">Muscle Tone</th>-->
+
  <th scope="col">D.O.B</th> 
  <th scope="col">Action</th>
 </tr>
@@ -46,13 +35,7 @@
 {% for child in children %}
 <tr>
 <th scope="row">{{  child.childregno}}</th>
-   <!-- <th scope="row">{{  child.motherid.patient_name}} {{ child.motherid.patient_surname}}</th>
-  <th scope="row">{{  child.heartrate}}</th>
-  <th scope="row">{{  child.skincolour}}</th>
-  <th scope="row">{{  child.reflex}}</th>
-  <th scope="row">{{  child.Breathing }}</th>
-  <th scope="row">{{  child.muscletone}}</th>-->
-  <th scope="row"> {{ child.Dob|date:"d M Y" }}</th> 
+   <th scope="row"> {{ child.Dob|date:"d M Y" }}</th> 
 
  
   
