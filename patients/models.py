@@ -72,7 +72,7 @@ class medical_record(models.Model):
         return self.patientid.patient_name
 
     def get_absolute_url(self):
-        return reverse('patient-detail',kwargs={'pk':self.pk})
+        return reverse('patient-detail',kwargs={'pk':self.patientid.id})
 
 
 

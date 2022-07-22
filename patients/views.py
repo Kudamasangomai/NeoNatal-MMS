@@ -84,7 +84,7 @@ class AddMedcialRecordView(LoginRequiredMixin ,SuccessMessageMixin,CreateView):
     model = medical_record
     form_class = AddMedicalRecordForm
     template_name = 'patients/addmedicalrecord.html'
-    success_url = reverse_lazy('patients')
+    #success_url = reverse_lazy('patients')
     success_message = 'Patient Medical Record successfully Added'
 
     def form_valid(self,form):

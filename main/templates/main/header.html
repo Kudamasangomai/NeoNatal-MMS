@@ -169,7 +169,7 @@
                                     </a>
                                 </li>
                                 
-                                {% if is_admin %}
+                                {% if user.is_superuser %}
                                                                  
                                     
                                 <li >
@@ -252,7 +252,7 @@
       <script src="{% static 'main/assets/pages/widget/amchart/serial.js' %}"></script>
       <script src="{% static 'main/assets/pages/widget/amchart/light.js' %}"></script>
       <script src="{% static 'main/assets/pages/widget/amchart/pie.min.js' %}"></script>
-      <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+      <!-- <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script> -->
       <!-- menu js -->
       <script src="{% static 'main/assets/js/pcoded.min.js' %}"></script>
       <script src="{% static 'main/assets/js/vertical-layout.min.js' %} "></script>

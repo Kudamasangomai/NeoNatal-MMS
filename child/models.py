@@ -33,24 +33,26 @@ class child(models.Model):
             return f'{ self.motherid.patient_name } child'
      
      #  #save method
-     # def save(self, *args, **kwargs):
-     #    #if heartrate is less than 1 
-     #    if self.heartrate < 2:
-     #        #twilio code
-     #        account_sid = 'AC786ed08d13a127ed6c6567f38533a55f'
-     #        auth_token = '569149322e781ebd23f1c97d7d9936a0'
-     #        client = Client(account_sid, auth_token)
+     def save(self, *args, **kwargs):
+        #if heartrate is less than 1 
+        if self.heartrate < 2:
+            #twilio code
+            account_sid = 'AC786ed08d13a127ed6c6567f38533a55f'
+            auth_token = 'eef515624c10273f2b57ed8718e81e81'
+           # auth_token = '569149322e781ebd23f1c97d7d9936a0'
+            client = Client(account_sid, auth_token)
 
-     #        message = client.messages.create(
-     #                       messaging_service_sid='MG43fefeae27269bdadf328bb970ede776',
-     #                       body=f'New Born Child with regno  {self.childregno}. Has a heartrate of 1 Please monitor the baby',
-     #                       from_='+19896834626',
-     #                       to='+263777459622' 
-     #                                )
+            message = client.messages.create(
+                           messaging_service_sid='MG43fefeae27269bdadf328bb970ede776',
+                           body=f'New Born Child with regno  {self.childregno}. Has a heartrate of 1 Please monitor the baby',
+                           from_='+19896834626',
+                           to='+263777459622' 
+                                    )
 
-     #        print(message.sid)
+            print(message.sid)
      ##    return super().save(*args, **kwargs)
 
+ 
 
 
 class childtest(models.Model):
@@ -68,23 +70,24 @@ class childtest(models.Model):
           return f'{self.child_regno}'
      
      #    #save method
-     # def save(self, *args, **kwargs):
-     #    #if heartrate is less than 1 
-     #    if self.heart_rate < 2:
-     #        #twilio code
-     #        account_sid = 'AC786ed08d13a127ed6c6567f38533a55f'
-     #        auth_token = '569149322e781ebd23f1c97d7d9936a0'
-     #        client = Client(account_sid, auth_token)
+     def save(self, *args, **kwargs):
+        #if heartrate is less than 1 
+        if self.heart_rate < 2:
+            #twilio code
+            account_sid = 'AC786ed08d13a127ed6c6567f38533a55f'
+            auth_token = 'eef515624c10273f2b57ed8718e81e81'
+           # auth_token = '569149322e781ebd23f1c97d7d9936a0'
+            client = Client(account_sid, auth_token)
 
-     #        message = client.messages.create(
-     #                       messaging_service_sid='MG43fefeae27269bdadf328bb970ede776',
-     #                       body=f'New Born Child with regno  {self.child_regno}. Has a heartrate of 1 Please monitor the baby',
-     #                       from_='+19896834626',
-     #                       to='+263777459622' 
-     #                                )
+            message = client.messages.create(
+                           messaging_service_sid='MG43fefeae27269bdadf328bb970ede776',
+                           body=f'New Born Child with regno  {self.child_regno}. Has a heartrate of 1 Please monitor the baby',
+                          from_='+19896834626',
+                           to='+263777459622' 
+                                    )
 
-     #        print(message.sid)
-     #    return super().save(*args, **kwargs)
+            print(message.sid)
+        return super().save(*args, **kwargs)
 
 
 # def deadchildid():
