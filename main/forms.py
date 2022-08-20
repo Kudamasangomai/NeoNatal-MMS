@@ -33,13 +33,16 @@ class  AddPatientForm(forms.ModelForm):
 
 class AddMedicalRecordForm(forms.ModelForm):
 
-    bptop = forms.CharField(min_length=2,max_length=3)
-    bpbottom = forms.CharField(min_length=2,max_length=3)
+    bptop = forms.CharField(label="Systolic",min_length=2,max_length=3)
+    bpbottom = forms.CharField(label="Diastolic",min_length=2,max_length=3)
+    hbc = forms.CharField(label="blood count")
+    bmi = forms.CharField(label="Body mass Index")
  
     class Meta:
         model = medical_record
         fields = '__all__'
         exclude = ['userid','patientid']
+        
 
 class Addchildform(forms.ModelForm):
     heartrate  = forms.IntegerField(min_value = 0 , max_value= 2  )
@@ -63,8 +66,8 @@ class Addchildtestform(forms.ModelForm):
     heart_rate  = forms.IntegerField(min_value = 0 , max_value= 2  )
     muscle_tone  = forms.IntegerField(min_value = 0 , max_value= 2  )
     skin_colour = forms.IntegerField(min_value = 0 , max_value= 2  )
-    re_flex  = forms.IntegerField(min_value = 0 , max_value= 2  )
-    Brea_thing = forms.IntegerField(min_value = 0 , max_value= 2  )
+    re_flex  = forms.IntegerField(label="Reflex",min_value = 0 , max_value= 2  )
+    Brea_thing = forms.IntegerField(label="Breathing",min_value = 0 , max_value= 2  )
 
 
     class Meta:
@@ -72,7 +75,6 @@ class Addchildtestform(forms.ModelForm):
         fields = '__all__'
         exclude = ['child_regno']
         
-   
 
 
     

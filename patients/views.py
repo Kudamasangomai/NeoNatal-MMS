@@ -1,34 +1,26 @@
-from django.http import HttpResponse
-from django.views.generic import (
-
-ListView,
-DetailView,
-FormView,
-UpdateView ,
-DeleteView,CreateView
-) 
-
+from django.views.generic import (ListView,DetailView,UpdateView ,DeleteView,CreateView)
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
+from neonatal.settings import EMAIL_HOST_USER
 from django.shortcuts import render,redirect
 from .models import patient ,medical_record
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from django.db.models import Q ,Count
+from django.db.models import Q 
 from django.core.mail import send_mail
-
+from django.http import HttpResponse
 from django.contrib import messages
 from main.forms import *
-from neonatal.settings import EMAIL_HOST_USER
+
 
 import io
 import csv
 import reportlab
-from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
+from django.http import FileResponse
 from reportlab.lib.pagesizes import letter
 
 
@@ -84,16 +76,33 @@ class AddMedcialRecordView(LoginRequiredMixin ,SuccessMessageMixin,CreateView):
     model = medical_record
     form_class = AddMedicalRecordForm
     template_name = 'patients/addmedicalrecord.html'
-    #success_url = reverse_lazy('patients')
     success_message = 'Patient Medical Record successfully Added'
 
+
+    def get_context_data(self, **kwargs):
+        context= super(AddMedcialRecordView,self).get_context_data(**kwargs)
+        context['pname'] = patient.objects.get(id=self.kwargs['pk'])
+        return context
+
     def form_valid(self,form):
-        patientidd = patient.objects.get(id=self.kwargs['pk'])
-    
+        patientidd = patient.objects.get(id=self.kwargs['pk'])    
         form.instance.patientid = patientidd
-        form.instance.userid = self.request.user #adding the logged in user to the frm instance
+        form.instance.userid = self.request.user #adding the logged in user to the from instance
+        #a = medical_record.objects.get(Patientid=self.kwargs['pk'])
         return super().form_valid(form)
 
+
+class ViewChildrenView(LoginRequiredMixin,DetailView):
+    model = patient
+    template_name = 'patients/patientchildren.html'
+    context_object_name = 'children'
+
+
+    def get_context_data(self,**kwargs):
+        context  = super(ViewChildrenView, self).get_context_data(**kwargs)
+        context['children'] = child.objects.filter(motherid = self.kwargs['pk'])
+        context['mother'] = child.objects.filter(motherid = self.kwargs['pk']).distinct()
+        return context
 
 class DeletePatientView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = patient

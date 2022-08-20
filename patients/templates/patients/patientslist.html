@@ -30,7 +30,7 @@
   <thead class="thead-dark">
 
     <tr>
-       <th scope="col">name </th>
+       <th scope="col">Patient Name </th>
        <th> Date Joined</th>
    
       <th scope="col">Assigend nurse</th>
@@ -62,7 +62,7 @@
    Action
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="{% url 'add-medical-record' patient.id %}">Create MR</a>
+    <a class="dropdown-item" href="{% url 'add-medical-record' patient.id %}">Create Medical Record</a>
     <a class="dropdown-item" href="{% url 'patient-detail' patient.id %}">View</a>
     <a class="dropdown-item" href="{% url 'patient-update' patient.id %}">Update</a>
     

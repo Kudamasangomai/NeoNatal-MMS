@@ -4,7 +4,9 @@
 {% block content%}
  
 
-<h2>Add  Patient record</h2>
+<br>
+  
+<h3>Adding Medical record for  <br>{{  pname.patient_name }}  {{  pname.patient_surname }} </h3>
 
  <form method="POST" enctype="multipart/form-data" autocomplete="off">
        {% csrf_token %}

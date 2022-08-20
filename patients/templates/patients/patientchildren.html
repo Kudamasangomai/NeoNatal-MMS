@@ -1,0 +1,66 @@
+{% extends "main/header.html "%}
+{% load static  %}
+{% block content%}
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h2 class="h3">
+     
+
+
+    
+{{ object.patient_name }} {{ object.patient_surname }}
+
+    
+
+   </h2>
+
+
+  </div>
+  {% include "main/messages.html" %}
+
+
+  <form class="form-inline my-6 my-lg-6" method="Post"  action="{%  url 'searched-child' %}">
+    {% csrf_token %}
+     <input class="form-control mr-sm-2" name="searchedchild" required="required" type="text" placeholder="Search" aria-label="Search">
+     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   
+   </form>
+
+<table class="table table-hover">
+<thead class="thead-dark">
+
+<tr>
+   <th scope="col">Child id</th>
+
+ <th scope="col">D.O.B</th> 
+ <th scope="col">Action</th>
+</tr>
+</thead>
+<tbody>
+{% for child in children %}
+<tr>
+<th scope="row">{{  child.childregno}}    {{  child.motherid.patient_name}}</th>
+   <th scope="row"> {{ child.Dob|date:"d M Y" }}</th> 
+
+ 
+  
+  <td><div class="btn-group dropleft">
+<button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+Action
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+<a class="dropdown-item" href="{% url 'child-detail' child.id %}">View</a>
+
+
+
+</div>
+</div></td>
+</tr>
+
+</tbody>
+
+{% endfor %}
+</table>
+{% endblock content%}

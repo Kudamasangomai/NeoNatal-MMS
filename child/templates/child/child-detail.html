@@ -8,7 +8,7 @@
    background: url('{% static "main8/images/neo.png" %}');
   
   background-repeat: no-repeat;
-  background-size: cover; */
+  background-size: cover; 
   
   
  
@@ -22,6 +22,7 @@
 <br/><br/>
 <h5>Child birth number {{ object.childregno }}</h5>
 <h5>Mother - {{ object.motherid.patient_surname }}</h5>
+<a class="dropdown-item" href="{% url 'add-test' object.childregno %} ">Add Test </a>
 <br/>
 
 <div class="container bootstrap snippets bootdey">
@@ -48,7 +49,7 @@
                               <th scope="col">Muscle Tone</th>
                              <th scope="col">AgPar Score</th>
                              <th scope="col">prediction</th>
-                             <th scope="col">Action</th>
+                             <!-- <th scope="col">Action</th> -->
                             </tr>
                             </thead>
                             <tbody>
@@ -99,7 +100,7 @@
                                 
                                  
                                   
-                                  <td><div class="btn-group dropleft">
+                                  <!-- <td><div class="btn-group dropleft">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                                 </button>
@@ -109,7 +110,7 @@
                                 
                                 
                                 </div>
-                                </div></td>
+                                </div></td> -->
                                 </tr>
 
                                 {% for a  in othertest  %}
@@ -157,20 +158,20 @@
                                     {% endif %}
                                     </th>
                                  
-                                    <th><div class="btn-group dropleft">
+                                    <!-- <th><div class="btn-group dropleft">
                                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Action
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         
-                                        <a class="dropdown-item" href="{% url 'add-test' object.childregno %} ">Add test 2</a>
+                                        <a class="dropdown-item" href="{% url 'add-test' object.childregno %} ">Add test 2</a> -->
                                         <!-- <a class="dropdown-item" href=" url 'object-update' object.id ">Update</a>
-                                        <a class="dropdown-item" href=" url 'delete-object' object.id  ">Delete</a> -->
+                                        <a class="dropdown-item" href=" url 'delete-object' object.id  ">Delete</a>
                                         
                                         
                                         </div>
                                         </div>
-                                    </th>
+                                    </th> -->
                                 
                                 </tr>
                                

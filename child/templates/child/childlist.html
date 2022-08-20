@@ -26,7 +26,7 @@
 
 <tr>
    <th scope="col">Child id</th>
-
+   <th scope="col">Mother of child</th>
  <th scope="col">D.O.B</th> 
  <th scope="col">Action</th>
 </tr>
@@ -34,8 +34,9 @@
 <tbody>
 {% for child in children %}
 <tr>
-<th scope="row">{{  child.childregno}}</th>
-   <th scope="row"> {{ child.Dob|date:"d M Y" }}</th> 
+<th scope="row">{{  child.childregno}} </th>
+<th>{{  child.motherid.patient_name}} {{  child.motherid.patient_surname}}</th>
+   <th scope="row"> {{ child.Dob|date:"d M Y " }}</th> 
 
  
   

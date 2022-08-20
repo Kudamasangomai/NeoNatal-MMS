@@ -4,7 +4,7 @@
 <script src="{% static 'main/js/chartt.js' %}"></script>
  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
         {% if patientdetail %}
-        <h1 class="h2"> {{ patient_name }} </h1>
+        <h2 class="h2"> {{ object.patient_name|capfirst }} {{  object.patient_surname }}</h2>
   {% endif %}
         <div class="btn-toolbar mb-4 mb-md-0">
           <div class="btn-group mr-2">
@@ -18,7 +18,7 @@
          </div>
             <div class="btn-group mr-2">
           
-            <a href="{% url 'add-child' object.id %}"><button type="button" class="btn btn-sm btn-outline-primary">View Children</button></a>
+            <a href="{%url 'view-children' object.id %}"><button type="button" class="btn btn-sm btn-outline-primary">View Children</button></a>
      </div>
      {% else %}
     
