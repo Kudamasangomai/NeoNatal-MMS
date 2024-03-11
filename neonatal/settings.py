@@ -152,9 +152,3 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'kudam775@gmail.com'
 EMAIL_HOST_PASSWORD = 'lkjvvkkhzbmjzluz'
 DEFAULT_FROM_EMAIL = 'kudam775@gmail.com'
-
-#SENDSMS_BACKEND = 'sendsms.backends.console.SmsBackend'
-# sid AC786ed08d13a127ed6c6567f38533a55f
-# at 569149322e781ebd23f1c97d7d9936a0
-# twilio +19896834626
-#messaging_service_sid='MG43fefeae27269bdadf328bb970ede776'
